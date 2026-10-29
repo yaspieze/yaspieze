@@ -8,4 +8,4 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'sha256-+KaUvDyOzasq6RJ/wse8yedWf1gqTUypTPaPNXuMou4=' 'sha256-3xeya6vVn2+nn2/MvR6uhKEPh/epBDyCleu7OFWmVWg=' 'sha256-Tgkv4w2NzxcUiIbb1FjueXwc5edf0kREyIZm2mHR/1w=' 'sha256-ooR823dx1hU8iUMy57o3FecKZGzzmRSq1hJd+IOWujs='; frame-src https://www.youtube-nocookie.com; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests
