@@ -39,9 +39,12 @@ Links are relative (`about/`, `../listen/`), so the site works at a domain root 
 ├── contact/index.html
 ├── assets/
 │   ├── brand/
-│   │   ├── yaspieze-wordmark.svg        Outlines, transparent, uses currentColor
-│   │   ├── yaspieze-wordmark-dark.png   Transparent PNG, plum to magenta
-│   │   └── yaspieze-wordmark-light.png  Transparent PNG, white
+│   │   ├── yaspieze-lockup.png          Wordmark with the character at the tail
+│   │   ├── yaspieze-lockup-dark.png     The same, pale, for dark backgrounds
+│   │   ├── yaspieze-lockup-nav.webp     Tight crop used in the navigation
+│   │   ├── yaspieze-lockup-og.png       Square-ish share card
+│   │   ├── yaspieze-wordmark.svg        Outlines only, transparent, currentColor
+│   │   └── yaspieze-wordmark-light.png  White outlines, the lockup's source
 │   └── img/
 │       ├── banner-upscaled.webp      Banner, upscaled 2× (5120 × 848)
 │       ├── avatar-upscaled.webp      Profile picture, upscaled 2× (1800 × 1800)
@@ -55,14 +58,14 @@ Links are relative (`about/`, `../listen/`), so the site works at a domain root 
 ├── sitemap.xml
 ├── humans.txt
 ├── .nojekyll
-├── .github/workflows/pages.yml
+├── _headers                 Content security policy, for hosts that read it
 ├── LICENSE
 └── README.md
 ```
 
 Each HTML page is self-contained: the stylesheet, the script and every image it needs are inlined into the file. That is deliberate. It means one request per page, nothing to break when a path changes, and a page that still renders correctly if it is saved and opened offline. The files in `assets/img/` are the originals - the upscales and the plain character art - kept so they can be reused or re-exported later. They are not referenced by the pages.
 
-Because everything is inlined, the home page is about 530 KB and the inner pages are 190–240 KB. If that ever needs to come down, the quickest route is to point the `<img>` tags at `assets/img/` and load one external stylesheet instead of six copies.
+Because everything is inlined, the home page is about 740 KB and the inner pages are 300–520 KB. If that ever needs to come down, the quickest route is to point the `<img>` tags at `assets/img/` and load one external stylesheet instead of six copies.
 
 ---
 
@@ -81,15 +84,13 @@ Any static server works: `npx serve`, `php -S localhost:8000`, Live Server in an
 
 ## Deployment
 
-### GitHub Pages, with the workflow in this repository
+### GitHub Pages
 
 1. Push the repository to GitHub.
-2. **Settings → Pages → Build and deployment → Source: GitHub Actions.**
-3. Every push to `main` then publishes the site. The workflow is in `.github/workflows/pages.yml`.
+2. **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `main`, folder `/ (root)`.
+3. Every push to `main` then publishes the site. `index.html` at the root is the home page, and the folder-per-page layout gives clean URLs.
 
-### GitHub Pages, without Actions
-
-**Settings → Pages → Deploy from a branch → main → / (root)**, then save. `index.html` at the root is the home page, and the folder-per-page layout gives clean URLs.
+There is deliberately no workflow file: Pages builds this repository straight from the branch, so a second, parallel deploy would only be somewhere else for the site to go wrong.
 
 ### Custom domain
 
@@ -105,7 +106,7 @@ Point them at the repository root. No build command, no publish directory, no re
 
 **Copy** is plain HTML inside each page's `<main>`. Search for the sentence. Keep the voice first-person and plain: no counts, no discography, no claims the artist hasn't made.
 
-**Colours and type** live in the `:root` block at the top of the `<style>` in every page. Because the stylesheet is inlined, a token change has to be applied to all six files. The palette is taken from the profile picture and the channel banner:
+**Colours and type** live in the `:root` block at the top of the `<style>` in every page. Because the stylesheet is inlined, a token change has to be applied to every page. Edit `dev/theme.css` and rebuild rather than hand-editing the eight files. The palette is taken from the profile picture and the channel banner:
 
 | Token | Value | Where it comes from |
 | --- | --- | --- |
@@ -174,21 +175,64 @@ channel, or anywhere the figure gets shown large. They are separate files
 rather than inlined because six 2048 px photographs on one page is a lot to
 download for a phone.
 
-## The wordmark
+## The lockup
 
-YASPIEZE is set as outlines, not as text: the letterforms come from the same Inter variable font the pages use, instanced at weight 850, converted to vector paths and tightened to -0.035em tracking. That gives a mark that is crisp at any size, has a genuinely transparent background, and renders identically whether or not the font loads.
+The mark is the wordmark with the character standing at its tail, drawn from the
+same cut-out art as the rest of the page. YASPIEZE itself is set as outlines,
+not text: the letterforms come from the same Inter variable font the pages use,
+instanced at weight 850, converted to vector paths and tightened to -0.035em
+tracking, then given a vertical gradient. Her shoulder sits just in front of the
+last letter, so every letter stays readable at any size.
 
-On the site it appears twice per page: a small ink version in the navigation, and the large gradient version in the home page hero. Both are inline SVG, so they cost a few kilobytes and nothing else.
-
-Three standalone copies live in `assets/brand/` for everything off the site (social headers, video thumbnails, printed stickers):
+Two colourways come from one drawing:
 
 | File | Use |
 | --- | --- |
-| `yaspieze-wordmark.svg` | Vector, transparent, inherits `currentColor` |
-| `yaspieze-wordmark-dark.png` | 1600 px wide, transparent, plum to magenta gradient |
-| `yaspieze-wordmark-light.png` | 1600 px wide, transparent, pure white for dark backgrounds |
+| `yaspieze-lockup-nav.webp` | 637 x 160, plum to magenta, inlined in the header on light pages |
+| `yaspieze-lockup-dark-nav.webp` | 637 x 160, white to lilac, the same crop for dark pages |
+| `yaspieze-lockup.png` | 1600 px wide master, transparent |
+| `yaspieze-lockup-dark.png` | 1600 px wide master, pale, with a faint rim so the dark bust holds on a dark page |
+| `yaspieze-lockup-og.png` | 1200 x 630 share card, flattened onto the page colour |
 
-The generator is `dev/make_wordmark.py` in the workspace outside this repository. Change `WEIGHT` or `TRACKING` at the top and run it to rebuild both the SVG path and the PNGs.
+The header swaps the two crops on `data-theme`, so a theme change needs no
+reload. The generator is `dev/make_logo.py` in the workspace outside this
+repository: it composes one white base, tints it twice, and writes both crops.
+
+## Seasons
+
+The site knows what month it is. `data-season` is set on `<html>` before the
+first paint, and the season decides four things at once: the page palette, the
+background field and the falling layer, the ribbon across the top, and which
+discount code the cart accepts.
+
+| Season | Months | Code | Accent |
+| --- | --- | --- | --- |
+| Spring | March to May | `BLOOM15` | `#c04a86` |
+| Summer | June to August | `SUN15` | `#0d8f96` |
+| Autumn | September to November | `LEAVES15` | `#b4551f` |
+| Winter | December to February | `SNOW15` | `#3f6fb5` |
+
+The checkout takes 15% off with the current season's code and refuses the other
+three. The date is the visitor's own clock, so the change happens on the day,
+not on the next deploy. Adding a fifth season means a palette block in the CSS
+and an entry in `SEASON` in the script; the markup reads from those, so nothing
+in the pages has to be repeated.
+
+## Light and dark
+
+Both themes are designed, not derived. The choice is written to
+`localStorage` under `ysp-theme`, and with nothing saved the site follows
+`prefers-color-scheme`. A short inline script sets `data-theme` on `<html>`
+before the body renders, so there is no flash of the wrong palette, and the
+toggle is a real button with `aria-pressed`.
+
+## Latest music
+
+The home page reads the channel's uploads playlist, so it always opens on the
+newest upload rather than on a video ID that would go stale. Nothing is
+downloaded from YouTube until the play button is pressed: no iframe, no
+cookies, no third-party script on load. If the player cannot be reached, the
+section falls back to a plain link to the channel.
 
 ---
 
@@ -250,4 +294,4 @@ Type is the Apple system stack, falling back to Inter, which is embedded under t
 - [ ] Check the prices in `CATALOGUE` against what the printer actually charges
 - [ ] When the figure goes on sale, add it to `CATALOGUE`, give it a product block on `/merch/`, and change the `fig-status` pill on `/figure/` from in production to available
 - [ ] Check the site at 390, 768 and 1440 px after any copy change
-- [ ] If the wordmark changes, replace the inline path in every page and the three files in `assets/brand/`
+- [ ] If the lockup changes, rerun `dev/make_logo.py`, rebuild, and replace the files in `assets/brand/`
