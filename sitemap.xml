@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Replace https://yaspieze.github.io/ with the real domain before publishing. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://yaspieze.github.io/</loc>
+    <loc>https://www.fngl.ir/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://yaspieze.github.io/about/</loc>
+    <loc>https://www.fngl.ir/about/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yaspieze.github.io/listen/</loc>
+    <loc>https://www.fngl.ir/listen/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yaspieze.github.io/collaborators/</loc>
+    <loc>https://www.fngl.ir/collaborators/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yaspieze.github.io/merch/</loc>
+    <loc>https://www.fngl.ir/merch/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yaspieze.github.io/figure/</loc>
+    <loc>https://www.fngl.ir/figure/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://yaspieze.github.io/contact/</loc>
+    <loc>https://www.fngl.ir/contact/</loc>
     <lastmod>2026-10-29</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.fngl.ir/changelog/</loc>
+    <lastmod>2026-10-29</lastmod>
+    <priority>0.5</priority>
   </url>
 </urlset>

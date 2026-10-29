@@ -829,7 +829,7 @@ html.strip-off .season-strip{display:none!important}
    The merch page is the one place where the season is allowed to shout: a
    coloured aura behind each product, a chip on the card, and a feature block
    that swaps its art to whichever costume matches the month. */
-.shop-page{position:relative;isolation:isolate}
+.shop-page{position:relative;isolation:isolate;overflow-x:clip}
 .shop-page::before,
 .shop-page::after{
   content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
@@ -933,6 +933,57 @@ html.strip-off .season-strip{display:none!important}
   .product::before{transition:none}
 }
 
+/* 31 the changelog, and a footer that says when it was last touched */
+.footer__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.footer__meta a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.footer__meta a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+.log{position:relative;margin:0;padding:0;list-style:none}
+.log::before{
+  content:"";position:absolute;left:5px;top:12px;bottom:12px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 55%,transparent),var(--hairline));
+}
+li.log{position:relative;padding:0 0 clamp(26px,3.4vw,40px) 34px}
+li.log::before{
+  content:"";position:absolute;left:0;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2px solid color-mix(in srgb,var(--accent) 70%,var(--ink));
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent);
+}
+li.log:first-child::before{background:var(--accent);border-color:var(--accent)}
+li.log:last-child{padding-bottom:0}
+.log__when{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:750;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.log__when time{font-variant-numeric:tabular-nums}
+.log__body h2{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  font-size:clamp(1.15rem,1.9vw,1.4rem);letter-spacing:-.015em;
+}
+.log__tag{
+  display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;
+  font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:color-mix(in srgb,var(--accent) 15%,transparent);
+  color:color-mix(in srgb,var(--accent) 78%,var(--ink));
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+}
+[data-theme="dark"] .log__tag{
+  background:color-mix(in srgb,var(--accent) 22%,transparent);
+  color:color-mix(in srgb,var(--accent) 55%,#fff);
+}
+.log__body p{margin-top:10px}
+.log__body ul{margin-top:12px;display:grid;gap:7px;padding-left:0;list-style:none}
+.log__body li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.log__body li::before{
+  content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;
+  background:color-mix(in srgb,var(--accent) 70%,transparent);
+}
+@media (max-width:640px){
+  li.log{padding-left:26px}
+  .log::before{left:3px}
+  li.log::before{width:10px;height:10px}
+}
+
 </style>
 <script>
 document.documentElement.classList.add('js');
@@ -1012,7 +1063,7 @@ window.YSP_PREFIX = "../";
       <div class="wrap">
         <span class="eyebrow">Collaborators</span>
         <h1>People I've worked with</h1>
-        <p>Artists who've been part of the channel. Go and listen to what they make on their own.</p>
+        <p>People who've been part of the channel at some point. Go and listen to what they make on their own, that's the useful part.</p>
       </div>
     </div>
 
@@ -1053,8 +1104,8 @@ window.YSP_PREFIX = "../";
         </div>
         <div class="card" style="margin-top:28px">
           <h2>How this list works</h2>
-          <p>Everyone here has been part of the channel in some form. The links go to their own channels rather than to my videos, because finding their work is the point of the page.</p>
-          <p>If you have worked with me and you are missing, say so. If you have not, and you make nerdcore, the door is the same one.</p>
+          <p>The links go to their own channels, not to my videos, because finding their stuff is the entire point of this page.</p>
+          <p>Worked with me and not on the list? Tell me and I'll fix it. Haven't worked with me yet and you make nerdcore? Same door.</p>
           <a class="card__more" href="../contact/">Say hello</a>
         </div>
       </div>
@@ -1064,8 +1115,14 @@ window.YSP_PREFIX = "../";
 
   <footer class="footer">
     <div class="wrap">
-      <p>&copy; 2026 Yaspieze. All rights reserved.</p>
-      <p>Designed by Yaspieze</p>
+      <p>&copy; 2026 Yaspieze. Songs and art are mine, please don't sell them.</p>
+      <p class="footer__meta">
+        <span>Site last touched <time datetime="2026-10-29">29 October 2026</time></span>
+        <span aria-hidden="true">&middot;</span>
+        <a href="../changelog/">What changed</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="../contact/">Say hello</a>
+      </p>
       <a class="footer__top" href="#top">Back to top</a>
     </div>
   </footer>
@@ -1136,7 +1193,7 @@ window.YSP_PREFIX = "../";
     function confirmCopied() {
       if (status) status.classList.add('on');
       button.textContent = 'Copied';
-      if (status) status.textContent = 'Discord ID copied to your clipboard.';
+      if (status) status.textContent = 'Got it. Paste it into Discord and say hi.';
       window.clearTimeout(timer);
       timer = window.setTimeout(function () {
         if (status) status.classList.remove('on');
@@ -1278,7 +1335,7 @@ window.YSP_PREFIX = "../";
       if (state.stage === 'done') return renderDone();
 
       if (!state.lines.length) {
-        body.innerHTML = '<p class="cart__empty">Nothing in here yet.<br>Shirts and hoodies are on the merch page.</p>';
+        body.innerHTML = '<p class="cart__empty">Empty, as it should be.<br>Everything I make is on the merch page, if you fancy a look.</p>';
         foot.innerHTML = '<a class="cart__checkout" href="' +
           PREFIX + 'merch/" data-cart-close>Go to merch</a>';
         return;
@@ -1412,7 +1469,7 @@ window.YSP_PREFIX = "../";
           render();
           var msg = document.querySelector('[data-promo-msg]');
           if (msg) {
-            msg.textContent = typed ? 'That is not the code for ' + season + '.' : 'Type the ' + season + ' code first.';
+            msg.textContent = typed ? 'That one isn\'t right. The ' + season + ' code starts with a different letter.' : 'Pop the code in first and I\'ll check it.';
             msg.classList.remove('ok');
           }
         }

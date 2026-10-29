@@ -829,7 +829,7 @@ html.strip-off .season-strip{display:none!important}
    The merch page is the one place where the season is allowed to shout: a
    coloured aura behind each product, a chip on the card, and a feature block
    that swaps its art to whichever costume matches the month. */
-.shop-page{position:relative;isolation:isolate}
+.shop-page{position:relative;isolation:isolate;overflow-x:clip}
 .shop-page::before,
 .shop-page::after{
   content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
@@ -933,6 +933,57 @@ html.strip-off .season-strip{display:none!important}
   .product::before{transition:none}
 }
 
+/* 31 the changelog, and a footer that says when it was last touched */
+.footer__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.footer__meta a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.footer__meta a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+.log{position:relative;margin:0;padding:0;list-style:none}
+.log::before{
+  content:"";position:absolute;left:5px;top:12px;bottom:12px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 55%,transparent),var(--hairline));
+}
+li.log{position:relative;padding:0 0 clamp(26px,3.4vw,40px) 34px}
+li.log::before{
+  content:"";position:absolute;left:0;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2px solid color-mix(in srgb,var(--accent) 70%,var(--ink));
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent);
+}
+li.log:first-child::before{background:var(--accent);border-color:var(--accent)}
+li.log:last-child{padding-bottom:0}
+.log__when{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:750;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.log__when time{font-variant-numeric:tabular-nums}
+.log__body h2{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  font-size:clamp(1.15rem,1.9vw,1.4rem);letter-spacing:-.015em;
+}
+.log__tag{
+  display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;
+  font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:color-mix(in srgb,var(--accent) 15%,transparent);
+  color:color-mix(in srgb,var(--accent) 78%,var(--ink));
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+}
+[data-theme="dark"] .log__tag{
+  background:color-mix(in srgb,var(--accent) 22%,transparent);
+  color:color-mix(in srgb,var(--accent) 55%,#fff);
+}
+.log__body p{margin-top:10px}
+.log__body ul{margin-top:12px;display:grid;gap:7px;padding-left:0;list-style:none}
+.log__body li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.log__body li::before{
+  content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;
+  background:color-mix(in srgb,var(--accent) 70%,transparent);
+}
+@media (max-width:640px){
+  li.log{padding-left:26px}
+  .log::before{left:3px}
+  li.log::before{width:10px;height:10px}
+}
+
 </style>
 <script>
 document.documentElement.classList.add('js');
@@ -1014,8 +1065,8 @@ window.YSP_PREFIX = "../";
     <div class="shop-head">
       <div>
         <span class="eyebrow">Merch</span>
-        <h1>Shirts, and things for the season.</h1>
-        <p>Everything here is printed with my own mark and my own character. The tees and hoodies run all year; the rest of the shelf changes with the weather, because nobody wants a beanie in July.</p>
+        <h1>Shirts, hoodies, and a few seasonal things.</h1>
+        <p>It's my own mark and my own character, printed on things I'd actually wear. The tees and hoodies stay all year. The rest of the shelf changes with the weather, because nobody wants a beanie in July.</p>
       </div>
     </div>
 
@@ -1255,7 +1306,7 @@ window.YSP_PREFIX = "../";
 
     <div class="shop-note">
       <h2>How ordering works</h2>
-      <p>Nothing is charged on this site. The cart writes the order out for you, and I quote postage and confirm stock before you pay a penny.</p>
+      <p>Nothing gets charged here. You build the order, the cart writes it out, and I come back with postage and a total before anyone pays anything.</p>
       <ol class="steps">
         <li><b>Pick the piece and the size.</b> Each size button travels with the order, so I know what to pack.</li>
         <li><b>Press copy in the cart.</b> It gives you the list and an order tag to paste straight into Discord.</li>
@@ -1271,7 +1322,7 @@ window.YSP_PREFIX = "../";
 
     <div class="shop-note">
       <h2>Out of season?</h2>
-      <p>The beanie and the mug leave the shop when it gets warm, and the tote leaves when it gets cold. They come back with the weather rather than sitting here out of place, and anything already in your cart stays in it.</p>
+      <p>The beanie and the mug go away when it warms up. The tote goes away when it gets cold. They come back with the weather instead of sitting here looking silly, and anything already in your cart stays in your cart.</p>
     </div>
 
     <div class="shop-note">
@@ -1287,8 +1338,14 @@ window.YSP_PREFIX = "../";
 
   <footer class="footer">
     <div class="wrap">
-      <p>&copy; 2026 Yaspieze. All rights reserved.</p>
-      <p>Designed by Yaspieze</p>
+      <p>&copy; 2026 Yaspieze. Songs and art are mine, please don't sell them.</p>
+      <p class="footer__meta">
+        <span>Site last touched <time datetime="2026-10-29">29 October 2026</time></span>
+        <span aria-hidden="true">&middot;</span>
+        <a href="../changelog/">What changed</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="../contact/">Say hello</a>
+      </p>
       <a class="footer__top" href="#top">Back to top</a>
     </div>
   </footer>
@@ -1359,7 +1416,7 @@ window.YSP_PREFIX = "../";
     function confirmCopied() {
       if (status) status.classList.add('on');
       button.textContent = 'Copied';
-      if (status) status.textContent = 'Discord ID copied to your clipboard.';
+      if (status) status.textContent = 'Got it. Paste it into Discord and say hi.';
       window.clearTimeout(timer);
       timer = window.setTimeout(function () {
         if (status) status.classList.remove('on');
@@ -1501,7 +1558,7 @@ window.YSP_PREFIX = "../";
       if (state.stage === 'done') return renderDone();
 
       if (!state.lines.length) {
-        body.innerHTML = '<p class="cart__empty">Nothing in here yet.<br>Shirts and hoodies are on the merch page.</p>';
+        body.innerHTML = '<p class="cart__empty">Empty, as it should be.<br>Everything I make is on the merch page, if you fancy a look.</p>';
         foot.innerHTML = '<a class="cart__checkout" href="' +
           PREFIX + 'merch/" data-cart-close>Go to merch</a>';
         return;
@@ -1635,7 +1692,7 @@ window.YSP_PREFIX = "../";
           render();
           var msg = document.querySelector('[data-promo-msg]');
           if (msg) {
-            msg.textContent = typed ? 'That is not the code for ' + season + '.' : 'Type the ' + season + ' code first.';
+            msg.textContent = typed ? 'That one isn\'t right. The ' + season + ' code starts with a different letter.' : 'Pop the code in first and I\'ll check it.';
             msg.classList.remove('ok');
           }
         }

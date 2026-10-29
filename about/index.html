@@ -829,7 +829,7 @@ html.strip-off .season-strip{display:none!important}
    The merch page is the one place where the season is allowed to shout: a
    coloured aura behind each product, a chip on the card, and a feature block
    that swaps its art to whichever costume matches the month. */
-.shop-page{position:relative;isolation:isolate}
+.shop-page{position:relative;isolation:isolate;overflow-x:clip}
 .shop-page::before,
 .shop-page::after{
   content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;
@@ -933,6 +933,57 @@ html.strip-off .season-strip{display:none!important}
   .product::before{transition:none}
 }
 
+/* 31 the changelog, and a footer that says when it was last touched */
+.footer__meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.footer__meta a{color:var(--ink-2);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.footer__meta a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+.log{position:relative;margin:0;padding:0;list-style:none}
+.log::before{
+  content:"";position:absolute;left:5px;top:12px;bottom:12px;width:2px;border-radius:2px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 55%,transparent),var(--hairline));
+}
+li.log{position:relative;padding:0 0 clamp(26px,3.4vw,40px) 34px}
+li.log::before{
+  content:"";position:absolute;left:0;top:5px;width:12px;height:12px;border-radius:50%;
+  background:var(--paper);border:2px solid color-mix(in srgb,var(--accent) 70%,var(--ink));
+  box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 12%,transparent);
+}
+li.log:first-child::before{background:var(--accent);border-color:var(--accent)}
+li.log:last-child{padding-bottom:0}
+.log__when{
+  font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:750;
+  color:var(--ink-3);margin-bottom:8px;
+}
+.log__when time{font-variant-numeric:tabular-nums}
+.log__body h2{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  font-size:clamp(1.15rem,1.9vw,1.4rem);letter-spacing:-.015em;
+}
+.log__tag{
+  display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;
+  font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:color-mix(in srgb,var(--accent) 15%,transparent);
+  color:color-mix(in srgb,var(--accent) 78%,var(--ink));
+  border:1px solid color-mix(in srgb,var(--accent) 26%,transparent);
+}
+[data-theme="dark"] .log__tag{
+  background:color-mix(in srgb,var(--accent) 22%,transparent);
+  color:color-mix(in srgb,var(--accent) 55%,#fff);
+}
+.log__body p{margin-top:10px}
+.log__body ul{margin-top:12px;display:grid;gap:7px;padding-left:0;list-style:none}
+.log__body li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.log__body li::before{
+  content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;
+  background:color-mix(in srgb,var(--accent) 70%,transparent);
+}
+@media (max-width:640px){
+  li.log{padding-left:26px}
+  .log::before{left:3px}
+  li.log::before{width:10px;height:10px}
+}
+
 </style>
 <script>
 document.documentElement.classList.add('js');
@@ -1011,8 +1062,8 @@ window.YSP_PREFIX = "../";
     <div class="page-head">
       <div class="wrap">
         <span class="eyebrow">About</span>
-        <h1>I make nerdcore, and I make it myself.</h1>
-        <p>Everything you hear on the channel is made here, by one person, in one room.</p>
+        <h1>Hey, I'm Yaspieze.</h1>
+        <p>Yaspz, if that's easier. I make nerdcore, mostly alone, usually late.</p>
       </div>
     </div>
 
@@ -1020,31 +1071,30 @@ window.YSP_PREFIX = "../";
       <div class="wrap">
         <div class="split">
           <div class="card">
-            <h2>Hey, I'm Yaspieze. Yaspz, if that's easier.</h2>
-            <p>I make nerdcore. If the word is new to you: nerdcore is songs about games and shows, and the characters stuck in them. There is a whole scene behind it. This is my corner of it.</p>
+            <h2>What I actually do</h2>
+            <p>In case the word is new to you: nerdcore is songs about games and shows, and usually about the characters stuck inside them. Poppy Playtime, Bendy and the Ink Machine, The Amazing Digital Circus, Verity, Minecraft. Something in one of those gets into my head and a song falls out of it. The show sets the mood. The rest is me.</p>
+            <p>I write it, sing it, arrange it and mix it. Nobody else touches it, which is exactly why there isn't a new song every week. I'd rather it be right than be fast.</p>
+            <p>I put the first one on YouTube in early 2023 and I've kept going since. New music most months, and a short video in between when a full song isn't ready.</p>
+            <p>If you make nerdcore too, I'm always up for working with someone. If you don't and you just want to say something, that's fine as well. I read everything, even when I'm slow to reply.</p>
 
-            <p>Most of my songs start with something I've been watching or playing. Poppy Playtime, Bendy and the Ink Machine, The Amazing Digital Circus, Verity, Minecraft. The game or show sets the mood and I write the song from there.</p>
-            <p>I've been putting music out on YouTube since early 2023. I write it, sing it, arrange it and mix it myself. That's the reason there isn't a new song every week.</p>
-            <p>If you make nerdcore too, I'm always up for working with people. Anything else, send it anyway. I read everything.</p>
-
-            <h3 class="card__sub">At a glance</h3>
+            <h3 class="card__sub">The short version</h3>
             <dl class="facts">
               <div><dt>Also known as</dt><dd>Yaspz</dd></div>
-              <div><dt>Putting music out since</dt><dd>Early 2023</dd></div>
+              <div><dt>First upload</dt><dd>Early 2023</dd></div>
               <div><dt>Does</dt><dd>Writes, sings, arranges, mixes</dd></div>
               <div><dt>Where it lives</dt><dd>YouTube, nowhere else</dd></div>
               <div><dt>Open to</dt><dd>Nerdcore collabs</dd></div>
-              <div><dt>Releases</dt><dd>New music most months</dd></div>
+              <div><dt>How often</dt><dd>New music most months</dd></div>
             </dl>
 
             <h3 class="card__sub">What it sounds like</h3>
             <ul class="list">
               <li>The vocal sits at the front. I don't bury it in the mix.</li>
-              <li>Parts written around the character, not just the plot.</li>
+              <li>The words are written around the character, not just the plot.</li>
               <li>Short videos when a full song isn't ready yet.</li>
             </ul>
 
-            <p class="note">No label, no distributor, no mailing list. Nothing sitting in a folder waiting for a release date.</p>
+            <p class="note">No label, no distributor, no waiting for a release date that someone else picked.</p>
             <a class="card__more" href="../contact/">Work with me</a>
           </div>
           <div class="split__aside">
@@ -1058,8 +1108,14 @@ window.YSP_PREFIX = "../";
 
   <footer class="footer">
     <div class="wrap">
-      <p>&copy; 2026 Yaspieze. All rights reserved.</p>
-      <p>Designed by Yaspieze</p>
+      <p>&copy; 2026 Yaspieze. Songs and art are mine, please don't sell them.</p>
+      <p class="footer__meta">
+        <span>Site last touched <time datetime="2026-10-29">29 October 2026</time></span>
+        <span aria-hidden="true">&middot;</span>
+        <a href="../changelog/">What changed</a>
+        <span aria-hidden="true">&middot;</span>
+        <a href="../contact/">Say hello</a>
+      </p>
       <a class="footer__top" href="#top">Back to top</a>
     </div>
   </footer>
@@ -1130,7 +1186,7 @@ window.YSP_PREFIX = "../";
     function confirmCopied() {
       if (status) status.classList.add('on');
       button.textContent = 'Copied';
-      if (status) status.textContent = 'Discord ID copied to your clipboard.';
+      if (status) status.textContent = 'Got it. Paste it into Discord and say hi.';
       window.clearTimeout(timer);
       timer = window.setTimeout(function () {
         if (status) status.classList.remove('on');
@@ -1272,7 +1328,7 @@ window.YSP_PREFIX = "../";
       if (state.stage === 'done') return renderDone();
 
       if (!state.lines.length) {
-        body.innerHTML = '<p class="cart__empty">Nothing in here yet.<br>Shirts and hoodies are on the merch page.</p>';
+        body.innerHTML = '<p class="cart__empty">Empty, as it should be.<br>Everything I make is on the merch page, if you fancy a look.</p>';
         foot.innerHTML = '<a class="cart__checkout" href="' +
           PREFIX + 'merch/" data-cart-close>Go to merch</a>';
         return;
@@ -1406,7 +1462,7 @@ window.YSP_PREFIX = "../";
           render();
           var msg = document.querySelector('[data-promo-msg]');
           if (msg) {
-            msg.textContent = typed ? 'That is not the code for ' + season + '.' : 'Type the ' + season + ' code first.';
+            msg.textContent = typed ? 'That one isn\'t right. The ' + season + ' code starts with a different letter.' : 'Pop the code in first and I\'ll check it.';
             msg.classList.remove('ok');
           }
         }
