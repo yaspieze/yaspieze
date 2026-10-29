@@ -1,0 +1,8 @@
+# Yaspieze
+# Replace the Sitemap line below when the domain changes.
+
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+Sitemap: https://yaspieze.github.io/sitemap.xml

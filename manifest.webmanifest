@@ -1,0 +1,13 @@
+{
+  "name": "Yaspieze",
+  "short_name": "Yaspieze",
+  "description": "Nerdcore artist. Songs about the games and animated shows.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#fdf9ff",
+  "theme_color": "#b8338f",
+  "icons": [
+    { "src": "assets/img/app-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,10 @@
+# editor and OS noise
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# nothing here is built, but keep stray output out
+node_modules/
+*.log

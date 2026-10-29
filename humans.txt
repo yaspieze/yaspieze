@@ -1,0 +1,12 @@
+/* TEAM */
+  Artist: Yaspieze
+  YouTube: https://www.youtube.com/@yaspieze
+  Discord: yappieze
+
+/* SITE */
+  Last update: 2026/10
+  Language: English
+  Doctype: HTML5
+  Standards: hand-written HTML, CSS and vanilla JavaScript
+  Software: none. No framework, no build step, no dependencies.
+  Images: channel banner and profile picture, upscaled; character art drawn to match
