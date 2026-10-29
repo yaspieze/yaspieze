@@ -524,7 +524,7 @@ html.strip-off .season-strip{display:none!important}
 .product__media img{width:100%;height:auto;aspect-ratio:1;object-fit:cover}
 .product__body{display:flex;flex-direction:column;gap:10px;padding:14px 8px 12px}
 .product__name{font-size:15.5px;font-weight:700;letter-spacing:-.01em}
-.product__sub{font-size:13px;color:var(--ink-3);margin-top:-4px}
+.product__sub{font-size:13px;color:var(--ink-3);margin-top:6px}
 .product__size{display:flex;flex-wrap:wrap;gap:6px}
 .product__size button{
   min-width:36px;padding:6px 9px;border:1px solid var(--line-strong);border-radius:8px;
@@ -534,7 +534,7 @@ html.strip-off .season-strip{display:none!important}
 [data-theme="dark"] .product__size button{background:rgba(255,255,255,.05)}
 .product__size button:hover{border-color:var(--ink);transform:translateY(-1px)}
 .product__size button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.product__row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:2px}
+.product__row{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .product__price{font-size:15.5px;font-weight:700}
 .product__add{
   width:100%;padding:12px;border:1px solid var(--line-strong);border-radius:var(--radius-sm);
@@ -805,6 +805,25 @@ html.strip-off .season-strip{display:none!important}
 .btn--ghost:hover{border-color:rgba(22,18,26,.28)}
 [data-theme="dark"] .btn--ghost{border-color:rgba(255,255,255,.17)}
 [data-theme="dark"] .btn--ghost:hover{border-color:rgba(255,255,255,.3)}
+
+/* 29 detail blocks: product specs, numbered steps, fact pairs */
+.product__spec{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:5px}
+.product__spec li{position:relative;padding-left:14px;font-size:13px;line-height:1.45;color:var(--ink-3)}
+.product__spec li::before{content:"";position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.steps{counter-reset:step;list-style:none;margin:18px 0 0;padding:0;display:grid;gap:14px}
+.steps li{counter-increment:step;position:relative;padding-left:46px;font-size:15px;line-height:1.55;color:var(--ink-2)}
+.steps li::before{
+  content:counter(step);position:absolute;left:0;top:-2px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+  background:rgba(22,18,26,.055);border:1px solid rgba(22,18,26,.13);
+  font-size:13px;font-weight:750;color:var(--ink);
+}
+[data-theme="dark"] .steps li::before{background:rgba(255,255,255,.075);border-color:rgba(255,255,255,.16)}
+.steps b{color:var(--ink);font-weight:680}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 22px;margin:20px 0 0;padding:0}
+.facts>div{border-top:1px solid var(--line);padding-top:10px}
+.facts dt{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:750;color:var(--ink-3)}
+.facts dd{margin:4px 0 0;font-size:15.5px;font-weight:620;color:var(--ink)}
+@media (max-width:560px){.facts{grid-template-columns:1fr}}
 
 </style>
 <script>
@@ -1391,13 +1410,15 @@ window.YSP_PREFIX = "../";
      newest upload without anybody editing this file.
      ------------------------------------------------------------------ */
   (function () {
-    var UPLOADS = 'UUjZ31sAP7v7aXQCpNvdX0lg';
+    var VIDEO_ID = '';
     Array.prototype.forEach.call(document.querySelectorAll('[data-video-frame]'), function (frame) {
       var btn = frame.querySelector('[data-video-play]');
       if (!btn) return;
-      btn.addEventListener('click', function () {
+      btn.addEventListener('click', function (e) {
+        if (!VIDEO_ID) return;           /* no upload yet: let the link do the work */
+        e.preventDefault();
         var f = document.createElement('iframe');
-        f.src = 'https://www.youtube-nocookie.com/embed/videoseries?list=' + UPLOADS + '&autoplay=1&rel=0';
+        f.src = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0';
         f.title = 'Latest Yaspieze video';
         f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
         f.allowFullscreen = true;
