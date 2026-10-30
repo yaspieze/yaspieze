@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- Generated at build time from the hashes of this page's own inline
      scripts. Kept in the head, above the inline code it governs. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZbjZB0sAikNEv250j9Za/2+g542B4hJn0Ax5MB7bhEk=' 'sha256-a1bL6l8jVjUWywmzOQ4tDHRBuAC1fI5b+q20RRGSRdA='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-ZbjZB0sAikNEv250j9Za/2+g542B4hJn0Ax5MB7bhEk=' 'sha256-pXHEMCl5GztgrhqmJb3YeUuBPwKalkue5xO7G+rJ96s='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
 <title>About · Yaspieze</title>
 <meta name="description" content="Who Yaspieze is, what nerdcore means here, and how the songs get made.">
 
@@ -381,27 +381,11 @@ p+p{margin-top:.85em}
 }
 .latest__more:hover{color:var(--accent);border-color:var(--accent)}
 .latest__frame{overflow:hidden;position:relative}
-.latest__poster{
-  display:flex;align-items:center;gap:18px;width:100%;
-  padding:clamp(20px,3.4vw,32px);background:none;border:0;cursor:pointer;text-align:left;
-}
-.latest__play{
-  flex:none;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;
-  background:linear-gradient(180deg,#ff1f1f,#d90000);position:relative;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 12px 22px -12px rgba(255,0,0,.75);
-  transition:transform .18s var(--ease),box-shadow .18s var(--ease);
-}
-.latest__play::after{
-  content:"";border-style:solid;border-width:8px 0 8px 13px;
-  border-color:transparent transparent transparent #fff;margin-left:3px;
-}
-.latest__poster:hover .latest__play{transform:scale(1.05);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 16px 30px -12px rgba(255,0,0,.85)}
-.latest__label{display:flex;flex-direction:column;gap:3px}
-.latest__label b{font-size:15.5px;font-weight:700;color:var(--ink)}
-.latest__label em{font-style:normal;font-size:13.5px;color:var(--ink-3)}
 .latest__frame iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
-.latest__fallback{padding:20px;font-size:14px}
-.latest__note{font-size:12.5px;color:var(--ink-3);margin-top:14px}
+.latest__frame--video{
+  border-radius:var(--radius);padding:0;line-height:0;
+}
+.latest__frame--video iframe{border-radius:var(--radius);background:#000}
 
 /* 14 the index rows */
 .page-head{padding:clamp(42px,6.5vw,78px) 0 clamp(20px,3vw,32px)}
@@ -947,7 +931,7 @@ window.YSP_PREFIX = "../";
     <div class="wrap">
       <p>&copy; 2026 Yaspieze. Songs and art are mine, please don't sell them.</p>
       <p class="footer__meta">
-        <span>Site last touched <time datetime="2026-10-29">29 October 2026</time></span>
+        <span>Site last touched <time datetime="2026-10-30">30 October 2026</time></span>
         <span aria-hidden="true">&middot;</span>
         <a href="../changelog/">What changed</a>
         <span aria-hidden="true">&middot;</span>
@@ -1064,30 +1048,7 @@ window.YSP_PREFIX = "../";
     label();
   })();
 
-  /* ------------------------------------------------------------------
-     3. Latest music. Nothing from YouTube is fetched until play is
-     pressed: no cookies, no third-party scripts, no layout cost.
-     ------------------------------------------------------------------ */
-  (function () {
-    var VIDEO_ID = '';
-    Array.prototype.forEach.call(document.querySelectorAll('[data-video-frame]'), function (frame) {
-      var btn = frame.querySelector('[data-video-play]');
-      if (!btn) return;
-      btn.addEventListener('click', function (e) {
-        if (!VIDEO_ID) return;           /* no upload yet: let the link do the work */
-        e.preventDefault();
-        var f = document.createElement('iframe');
-        f.src = 'https://www.youtube-nocookie.com/embed/' + VIDEO_ID + '?autoplay=1&rel=0';
-        f.title = 'Latest Yaspieze video';
-        f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-        f.allowFullscreen = true;
-        f.referrerPolicy = 'strict-origin-when-cross-origin';
-        frame.appendChild(f);
-        btn.remove();
-      });
-    });
-  })();
-
+  
   /* ------------------------------------------------------------------
      4. Tab title. Only runs while the tab is hidden, stops the instant
      it is visible again, and always restores the real title.
