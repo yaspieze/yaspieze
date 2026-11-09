@@ -3,46 +3,310 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#111014">
-<meta name="description" content="Meet Yaspieze: nerdcore music inspired by games, animated worlds and the stories we love. Watch on YouTube.">
-<meta property="og:title" content="Yaspieze — Music for other worlds">
-<meta property="og:description" content="Nerdcore music inspired by games, animated worlds and the stories we love.">
+<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Yaspieze makes nerdcore music about the games, stories and animated worlds you love. Original songs, free to watch on YouTube.">
+<meta property="og:title" content="Yaspieze — The nerdcore channel made for you">
+<meta property="og:description" content="Original nerdcore songs about the games, stories and animated worlds you love.">
 <meta property="og:image" content="https://www.fngl.ir/assets/img/banner.webp">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/img/app-icon.png">
 <link rel="preload" href="assets/fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin>
-<title>Yaspieze — Music for other worlds</title>
+<link rel="preload" href="assets/img/banner-upscaled.webp" as="image" fetchpriority="high">
+<title>Yaspieze — The nerdcore channel made for you</title>
 <style>
-:root{color-scheme:dark;--bg:#111014;--text:#f7f5f8;--muted:#a6a2ae;--line:#ffffff1c;--purple:#cd9bfc}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}a:focus-visible{outline:3px solid #e5bcff;outline-offset:5px}img{display:block;max-width:100%}.wrap{width:min(1320px,calc(100% - 72px));margin:auto}.topbar{height:88px;display:flex;align-items:center;justify-content:space-between;gap:30px}.brand{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:850;letter-spacing:-1px}.brand img{width:36px;height:36px;object-fit:cover;border-radius:10px}.nav{display:flex;gap:36px;align-items:center;color:#b9b5be;font-size:14px;font-weight:650}.nav a:hover{color:white}.nav-cta{border:1px solid #ffffff30;border-radius:9px;color:white!important;padding:12px 17px}.nav-cta:hover{background:#ffffff10}.hero{position:relative;min-height:650px;border-radius:18px;overflow:hidden;background:radial-gradient(ellipse at 72% 38%,#6c377c 0%,#3e224c 30%,#211a28 58%,#17151b 80%);border:1px solid #ffffff14;display:flex;align-items:center}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#151318 0%,#151318ed 31%,#15131855 64%,transparent 100%),repeating-linear-gradient(0deg,transparent 0 79px,#ffffff08 80px),repeating-linear-gradient(90deg,transparent 0 79px,#ffffff08 80px);pointer-events:none}.hero-copy{position:relative;z-index:2;padding:80px 7%;max-width:790px}.eyebrow{display:flex;align-items:center;gap:9px;color:#d8b4f5;font-size:11px;letter-spacing:.16em;font-weight:800;text-transform:uppercase}.dot{width:7px;height:7px;background:#d9a9ff;border-radius:50%;box-shadow:0 0 14px #d9a9ff}h1,h2,h3,p{margin:0}h1{font-size:clamp(58px,7.5vw,108px);line-height:.94;letter-spacing:-.075em;margin:27px 0 24px;font-weight:850}h1 span{color:#d9aaf8}.lead{font-size:clamp(16px,1.4vw,19px);line-height:1.65;color:#c1bac8;max-width:475px}.actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:34px}.button{display:inline-flex;align-items:center;justify-content:center;gap:11px;padding:16px 21px;border-radius:9px;background:#e4c2ff;color:#1d1324;font-size:14px;font-weight:800;transition:transform .2s,background .2s}.button:hover{transform:translateY(-2px);background:white}.button svg{width:19px;height:19px}.textlink{font-size:14px;font-weight:700;color:#ded7e1;padding:12px 2px}.textlink:hover{color:#fff}.character{position:absolute;right:6%;bottom:-105px;width:min(38%,420px);max-height:95%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 20px 40px #12091990)}.hero-label{position:absolute;right:30px;bottom:24px;font-size:10px;letter-spacing:.16em;color:#ffffff83;font-weight:700;text-transform:uppercase}.strip{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid var(--line);padding:27px 3px;color:#8c8792;font-size:11px;font-weight:750;letter-spacing:.13em;text-transform:uppercase}.strip b{color:#e5dbe9;font-size:13px;letter-spacing:0}.strip-right{display:flex;gap:36px}.about{padding:125px 0 120px;display:grid;grid-template-columns:.9fr 1.1fr;gap:90px}.section-kicker{font-size:11px;color:#c39bde;text-transform:uppercase;font-weight:800;letter-spacing:.16em;margin-bottom:22px}h2{font-size:clamp(42px,5vw,68px);letter-spacing:-.065em;line-height:1.03;font-weight:800}h2 span{color:#8c8590}.about-copy{padding-top:32px;max-width:600px}.about-copy p{font-size:19px;line-height:1.7;color:#b2acb7}.about-copy p+p{margin-top:20px}.tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}.tag{border:1px solid #ffffff20;border-radius:100px;padding:9px 13px;color:#c7bdcc;font-size:12px;font-weight:650}.feature{border-radius:18px;overflow:hidden;background:#211a28;border:1px solid #ffffff16;display:grid;grid-template-columns:1fr 1fr;min-height:350px}.feature-copy{padding:60px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}.feature h2{font-size:clamp(38px,4vw,57px)}.feature p{color:#bfb5c4;line-height:1.65;margin-top:18px;max-width:400px}.feature .button{margin-top:26px}.feature-art{min-height:270px;background:linear-gradient(90deg,#211a28 0%,transparent 30%),url('assets/img/banner.webp') center/cover no-repeat}.footer{padding:65px 0 35px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#8f8994;font-size:12px}.footer .brand{color:#eee;font-size:16px}.footer .brand img{width:28px;height:28px}.footer a:not(.brand):hover{color:white}@media(max-width:760px){.wrap{width:calc(100% - 32px)}.topbar{height:74px}.nav{gap:15px}.nav .hide-mobile{display:none}.nav-cta{padding:10px 12px}.hero{min-height:720px;align-items:flex-start}.hero:before{background:linear-gradient(180deg,#151318 0%,#151318ee 32%,#15131850 70%,transparent 100%)}.hero-copy{padding:60px 25px 0}.character{width:72%;max-height:51%;right:3%;bottom:-35px}.hero-label{right:auto;left:25px;bottom:22px}.strip{align-items:flex-start;line-height:1.6}.strip-right{gap:12px;flex-direction:column;text-align:right}.about{padding:90px 0;grid-template-columns:1fr;gap:15px}.about-copy{padding-top:10px}.feature{grid-template-columns:1fr}.feature-copy{padding:38px 25px}.feature-art{min-height:190px;background:linear-gradient(180deg,#211a28,transparent 40%),url('assets/img/banner.webp') center/cover}.footer{flex-wrap:wrap}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.button{transition:none}}
-
-/* A locally hosted variable typeface keeps the page independent of font CDNs. */
-@font-face{font-family:Outfit;src:url('assets/fonts/outfit-latin.woff2') format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
-:root{--bg:#050505;--text:#f7f7f8;--line:rgba(255,255,255,.09)}
-body{font-family:Outfit,system-ui,sans-serif;background:#050505}
-.wrap{width:min(1360px,calc(100% - 64px))}.topbar{height:74px}.brand{font-size:21px;letter-spacing:-.05em}.brand img{border-radius:8px}.nav{font-size:14px;gap:30px}.nav-cta{background:#ffffff0b;border-color:#ffffff1e;border-radius:8px}
-.hero{min-height:690px;border:0;border-radius:0;background:radial-gradient(ellipse at 73% 40%,#753783 0%,#301a38 28%,#0b090d 64%,#050505 100%)}
-.hero:before{background:linear-gradient(90deg,#050505 0%,#050505d9 32%,transparent 76%),linear-gradient(0deg,#050505,transparent 38%),repeating-linear-gradient(90deg,transparent 0 95px,#ffffff06 96px)}
-.hero-copy{padding:80px 6%;max-width:780px}.eyebrow{width:max-content;max-width:100%;background:#ffffff0b;border:1px solid #ffffff1b;border-radius:99px;padding:9px 13px;letter-spacing:.09em;color:#d7c5df}
-h1{font-size:clamp(62px,7.5vw,112px);line-height:.94;letter-spacing:-.06em;margin:27px 0}.lead{color:#aaa5af;max-width:465px}.button{background:#d9a2ff;border-radius:8px;box-shadow:0 0 28px #a75af52b}.character{right:8%;width:min(39%,440px);bottom:-90px}.hero-label{color:#b3a4bc}
-.strip{border-top:1px solid var(--line);padding:28px 0}.about{padding:145px 0}.about-copy p{font-size:18px}.tag{background:#ffffff08;border-color:#ffffff14;border-radius:7px}
-.feature{background:#111114;border-radius:14px;border-color:#ffffff14}.feature-copy{padding:64px}.feature-art{background:linear-gradient(90deg,#111114 0%,transparent 32%),url('assets/img/banner.webp') center/cover no-repeat}
-.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:-45px 0 115px}.card{min-height:175px;padding:26px;background:#ffffff08;border:1px solid #ffffff12;border-radius:12px}.card-icon{display:grid;place-items:center;width:38px;height:38px;border:1px solid #cf9bf54d;background:#ca94f91a;border-radius:9px;color:#deb7fb;font-size:19px;margin-bottom:24px}.card h3{font-size:18px;margin-bottom:8px}.card p{font-size:14px;line-height:1.5;color:#aaa5af}.footer{border-top:1px solid #ffffff16;margin-top:85px;padding-top:32px}
-@media(max-width:760px){.wrap{width:calc(100% - 32px)}.topbar{height:70px}.hero{min-height:720px}.hero:before{background:linear-gradient(180deg,#050505 0%,#050505dc 34%,transparent 68%),linear-gradient(0deg,#050505 0%,transparent 30%)}.hero-copy{padding:60px 12px 0}.hero h1{font-size:clamp(57px,12vw,82px)}.character{width:72%;right:2%;bottom:-15px;max-height:49%}.hero-label{left:12px}.about{padding:90px 0}.cards{grid-template-columns:1fr;margin:-35px 0 85px}.card{min-height:0}.feature-copy{padding:38px 25px}.feature-art{background:linear-gradient(180deg,#111114,transparent 40%),url('assets/img/banner.webp') center/cover}.footer{margin-top:65px}}
-
+@font-face{font-family:Outfit;src:url('assets/fonts/outfit-latin.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}
+:root{color-scheme:dark;--bg:#050505;--panel:#0a0b0e;--panel2:#101116;--line:rgba(255,255,255,.08);--text:#f4f2f6;--muted:rgba(255,255,255,.62);--faint:rgba(255,255,255,.42);--accent:#d3a1ff;--accent-ink:#1d1029;--accent-deep:#a75af5;--radius:16px;--gutter:clamp(16px,4vw,32px)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--bg);color:var(--text);font-family:Outfit,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+.wrap{width:min(1360px,100% - var(--gutter)*2);margin-inline:auto}
+/* ---------- fixed nav ---------- */
+.nav{position:fixed;inset:0 0 auto 0;z-index:100;background:rgba(5,5,5,.55);-webkit-backdrop-filter:blur(14px) saturate(140%);backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.03em}
+.brand img{width:32px;height:32px;border-radius:9px;object-fit:cover}
+.brand b{color:var(--accent);font-weight:800}
+.links{display:flex;gap:4px;margin-inline:auto}
+.links a{font-size:14px;color:var(--muted);padding:10px 14px;border-radius:999px;white-space:nowrap}
+.links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.pills{display:flex;gap:10px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px 0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.05);font-size:14px;font-weight:600;white-space:nowrap}
+.pill:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22)}
+.pill.solid{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);padding:0 18px}
+.pill.solid:hover{background:#e2bcff}
+.pill svg{width:16px;height:16px}
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;display:flex;align-items:stretch;min-height:100svh;padding:150px 0 0}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.5}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.62) 0%,rgba(5,5,5,.35) 30%,rgba(5,5,5,.78) 68%,var(--bg) 100%),linear-gradient(90deg,rgba(5,5,5,.72) 0%,rgba(5,5,5,.2) 60%,rgba(5,5,5,.45) 100%)}
+.hero-inner{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:56px}
+.badge{display:inline-flex;align-items:center;gap:9px;width:max-content;max-width:100%;padding:9px 15px;border-radius:999px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);font-size:12.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#e4d3f2}
+.badge i{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);font-style:normal}
+h1{font-size:clamp(52px,8.5vw,124px);line-height:.98;letter-spacing:-.045em;font-weight:800;margin:26px 0 22px;text-wrap:balance}
+h1 .accent{color:var(--accent)}
+.sub{max-width:52ch;font-size:clamp(16px,1.4vw,19px);line-height:1.7;color:rgba(255,255,255,.78);font-weight:300}
+.cta-row{display:flex;align-items:center;gap:26px;flex-wrap:wrap;margin-top:32px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-size:15px;font-weight:700;box-shadow:0 8px 28px -10px rgba(211,161,255,.55),inset 0 1px 0 rgba(255,255,255,.4)}
+.btn:hover{background:#e5c2ff}
+.btn svg{width:19px;height:19px}
+.ghost-link{font-size:15px;font-weight:600;color:rgba(255,255,255,.85);padding:12px 2px;border-bottom:1px solid transparent}
+.ghost-link:hover{color:#fff;border-color:rgba(255,255,255,.35)}
+.showcase{position:absolute;z-index:1;right:max(0px,calc((100% - 1360px)/2));bottom:0;height:min(82%,640px);width:auto;max-width:44vw;object-fit:contain;object-position:bottom;filter:drop-shadow(0 24px 60px rgba(0,0,0,.6));pointer-events:none}
+.stats{display:flex;gap:clamp(28px,5vw,72px);flex-wrap:wrap;margin-top:52px;padding-top:30px;border-top:1px solid var(--line)}
+.stat b{display:block;font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.03em}
+.stat span{font-size:13.5px;color:var(--muted)}
+/* ---------- split headings ---------- */
+section.block{padding:clamp(72px,9vw,130px) 0 0}
+.split{display:flex;flex-direction:column;font-size:clamp(38px,5.4vw,72px);line-height:1.02;letter-spacing:-.04em;font-weight:800;text-wrap:balance}
+.split .dim{color:var(--faint)}
+.lead{margin-top:16px;color:var(--muted);font-size:17px;max-width:60ch}
+/* ---------- feature tabs ---------- */
+.tabs{margin-top:38px;border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs label{flex:none;padding:12px 14px 16px;font-size:15px;color:var(--faint);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs label:hover{color:#fff}
+.flow input{position:absolute;opacity:0;pointer-events:none}
+#t1:checked~.tabs label[for=t1],#t2:checked~.tabs label[for=t2],#t3:checked~.tabs label[for=t3],#t4:checked~.tabs label[for=t4],#t5:checked~.tabs label[for=t5]{color:#fff;border-color:var(--accent)}
+.stage{position:relative;margin-top:26px;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)),var(--panel);min-height:380px}
+.panel{display:none;grid-template-columns:1fr 1fr;min-height:380px}
+#t1:checked~.stage .p1,#t2:checked~.stage .p2,#t3:checked~.stage .p3,#t4:checked~.stage .p4,#t5:checked~.stage .p5{display:grid}
+.panel-copy{padding:clamp(30px,4vw,60px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.panel-copy h3{font-size:clamp(26px,3vw,38px);letter-spacing:-.03em;font-weight:800}
+.panel-copy p{margin-top:14px;color:var(--muted);font-size:16px;line-height:1.65;max-width:42ch}
+.panel-copy a{margin-top:22px}
+.panel-art{position:relative;min-height:280px;background:radial-gradient(ellipse at 60% 40%,rgba(167,90,245,.4),transparent 65%),#14101a}
+.panel-art img{position:absolute;inset:0;margin:auto;max-height:92%;max-width:88%;object-fit:contain;filter:drop-shadow(0 18px 44px rgba(0,0,0,.55))}
+/* ---------- music / queue ---------- */
+.duo{display:grid;grid-template-columns:1fr 1.1fr;gap:clamp(30px,4vw,64px);margin-top:44px;align-items:start}
+.feat{padding:22px 0;border-bottom:1px solid var(--line)}
+.feat:first-child{padding-top:6px}
+.feat h3{font-size:18px;font-weight:700}
+.feat p{margin-top:8px;color:var(--muted);font-size:15px;line-height:1.6}
+.queue{border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)),var(--panel);overflow:hidden}
+.queue-head{display:flex;align-items:center;gap:12px;padding:18px 22px;border-bottom:1px solid var(--line)}
+.queue-head img{width:34px;height:34px;border-radius:10px;object-fit:cover}
+.queue-head b{font-size:15px}
+.queue-head span{display:block;font-size:12.5px;color:var(--muted);font-weight:400}
+.qrow{display:flex;align-items:center;gap:14px;padding:16px 22px;border-bottom:1px solid var(--line)}
+.qrow:last-of-type{border-bottom:0}
+.qrow:hover{background:rgba(255,255,255,.03)}
+.qplay{flex:none;width:42px;height:42px;border-radius:50%;border:1px solid rgba(211,161,255,.4);background:rgba(211,161,255,.1);display:grid;place-items:center;color:var(--accent)}
+.qplay svg{width:16px;height:16px;margin-left:2px}
+.qrow b{display:block;font-size:15px;font-weight:600}
+.qrow span{font-size:13px;color:var(--muted)}
+.qrow .go{margin-left:auto;color:var(--faint);font-size:18px}
+.queue-foot{padding:18px 22px 22px}
+.queue-foot .btn{width:100%;justify-content:center}
+/* ---------- cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:44px}
+.card{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel);display:flex;flex-direction:column}
+.card:hover{border-color:rgba(255,255,255,.18)}
+.card-art{aspect-ratio:16/8.5;object-fit:cover;width:100%;background:#14101a}
+.card-body{padding:22px;display:flex;flex-direction:column;gap:10px;flex:1}
+.tagrow{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--muted)}
+.tag{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);border:1px solid rgba(211,161,255,.35);background:rgba(211,161,255,.08);padding:5px 10px;border-radius:999px}
+.card h3{font-size:19px;letter-spacing:-.01em}
+.card p{font-size:14.5px;color:var(--muted);line-height:1.6;flex:1}
+.more{display:inline-flex;margin-top:26px;font-weight:600;font-size:15px;color:rgba(255,255,255,.85)}
+.more:hover{color:var(--accent)}
+/* ---------- faq ---------- */
+.faq-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:14px;margin-top:44px;align-items:start}
+.faq{display:flex;flex-direction:column;gap:10px}
+details{border:1px solid var(--line);border-radius:16px;background:linear-gradient(180deg,rgba(255,255,255,.025),rgba(255,255,255,0)),var(--panel);padding:0 22px;transition:border-color .25s}
+details:hover{border-color:rgba(255,255,255,.16)}
+details[open]{border-color:rgba(211,161,255,.3)}
+summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 0;font-size:16px;font-weight:600}
+summary::-webkit-details-marker{display:none}
+summary .x{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.16);display:grid;place-items:center;font-size:18px;font-weight:300;color:var(--muted);transition:transform .25s}
+details[open] summary .x{transform:rotate(45deg)}
+details p{padding:0 0 22px;color:var(--muted);font-size:15px;line-height:1.65;max-width:62ch}
+.side{display:flex;flex-direction:column;gap:14px}
+.side-card{border:1px solid var(--line);border-radius:var(--radius);padding:26px;background:linear-gradient(180deg,rgba(211,161,255,.07),rgba(211,161,255,0)),var(--panel)}
+.side-card:hover{border-color:rgba(211,161,255,.35)}
+.side-card b{font-size:17px}
+.side-card p{margin-top:8px;font-size:14px;color:var(--muted);line-height:1.6}
+.side-card span.go{display:inline-flex;margin-top:16px;font-size:14px;font-weight:700;color:var(--accent)}
+/* ---------- closing ---------- */
+.closing{position:relative;margin-top:clamp(72px,9vw,130px);overflow:hidden;border-block:1px solid var(--line)}
+.closing img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.4}
+.closing-veil{position:absolute;inset:0;background:linear-gradient(180deg,var(--bg),rgba(5,5,5,.55) 35%,rgba(5,5,5,.82))}
+.closing-inner{position:relative;z-index:1;text-align:center;padding:clamp(90px,12vw,150px) 0}
+.kicker{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.closing .split{align-items:center;text-align:center;margin-top:18px}
+.closing .lead{margin-inline:auto;text-align:center}
+.closing .cta-row{justify-content:center;margin-top:36px}
+.fine{margin-top:22px;font-size:13.5px;color:var(--muted)}
+.fine a{text-decoration:underline;text-underline-offset:3px}
+/* ---------- footer ---------- */
+footer{background:#07080b}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding:clamp(48px,6vw,80px) 0 40px}
+.foot-lead p{margin-top:14px;color:var(--muted);font-size:15px;line-height:1.65;max-width:34ch}
+.foot-col h4{font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700;margin-bottom:18px}
+.foot-col a{display:block;padding:7px 0;font-size:15px;color:var(--muted)}
+.foot-col a:hover{color:#fff}
+.wordmark{font-size:clamp(60px,12.5vw,190px);font-weight:800;letter-spacing:-.04em;line-height:1;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.16);user-select:none;padding:10px 0 0;white-space:nowrap}
+.foot-bar{border-top:1px solid var(--line);margin-top:26px;padding:22px 0 30px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--faint)}
+/* ---------- responsive ---------- */
+@media(max-width:1020px){.showcase{opacity:.35;max-width:60vw}.duo,.faq-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){
+.links{display:none}
+.nav-inner{height:62px}
+.pill{height:36px;padding:0 14px 0 11px;font-size:13px}
+.hero{padding-top:120px;min-height:100svh}
+.showcase{position:relative;right:auto;max-width:100%;width:min(420px,86vw);height:auto;max-height:44vh;margin:34px auto 0;opacity:1}
+.hero-inner{padding-bottom:44px}
+.panel,#t1:checked~.stage .p1,#t2:checked~.stage .p2,#t3:checked~.stage .p3,#t4:checked~.stage .p4,#t5:checked~.stage .p5{grid-template-columns:1fr}
+.panel-art{min-height:230px;order:-1}
+.cards{grid-template-columns:1fr}
+.foot-grid{grid-template-columns:1fr 1fr}
+.foot-lead{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<header class="wrap topbar">
-<a class="brand" href="#top" aria-label="Yaspieze home"><img src="assets/img/avatar.webp" width="36" height="36" alt="">yaspieze<span style="color:#ce9af5">.</span></a>
-<nav class="nav" aria-label="Main navigation"><a class="hide-mobile" href="#about">About</a><a class="hide-mobile" href="#watch">The channel</a><a class="nav-cta" href="https://www.youtube.com/@yaspieze">YouTube <span aria-hidden="true">↗</span></a></nav>
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Yaspieze home"><img src="assets/img/avatar.webp" width="32" height="32" alt="">yaspieze<b>.</b></a>
+    <nav class="links" aria-label="Sections">
+      <a href="#channel">Channel</a>
+      <a href="#music">Music</a>
+      <a href="#videos">Videos</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="pills">
+      <a class="pill" href="https://www.youtube.com/@yaspieze" aria-label="Yaspieze on YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5a2.7 2.7 0 0 0-1.9 1.9A28 28 0 0 0 2 12a28 28 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.8ZM10 15.2V8.8l5.5 3.2-5.5 3.2Z"/></svg>YouTube</a>
+      <a class="pill solid" href="https://www.youtube.com/@yaspieze?sub_confirmation=1">Subscribe</a>
+    </div>
+  </div>
 </header>
-<main id="top" class="wrap">
-<section class="hero" aria-labelledby="hero-title"><div class="hero-copy"><div class="eyebrow"><span class="dot"></span> Welcome to the world of Yaspieze</div><h1 id="hero-title">Music for<br><span>other worlds.</span></h1><p class="lead">Games, stories, and a little imagination. Welcome to the home of Yaspieze, where the worlds we love become music.</p><div class="actions"><a class="button" href="https://www.youtube.com/@yaspieze"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5a2.7 2.7 0 0 0-1.9 1.9A28 28 0 0 0 2 12a28 28 0 0 0 .4 4.8 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.8ZM10 15.2V8.8l5.5 3.2-5.5 3.2Z"/></svg> Visit the channel</a><a class="textlink" href="#about">Get to know me <span aria-hidden="true">↓</span></a></div></div><img class="character" src="assets/img/character-mic.webp" width="480" height="1080" alt="Yaspieze's purple-haired character holding a microphone" fetchpriority="high"><span class="hero-label">Music · Stories · Imagination</span></section>
-<div class="strip"><div>Independent artist &nbsp; <b>✳ &nbsp; YASPIEZE</b></div><div class="strip-right"><span>Nerdcore & beyond</span><span>Made for the fans ✦</span></div></div>
-<section class="about" id="about"><div><div class="section-kicker">01 / The artist</div><h2>Inspired by worlds.<br><span>Made into music.</span></h2></div><div class="about-copy"><p>Hey, I'm Yaspieze. I make nerdcore music inspired by the games, characters, and animated stories that stay with us long after the screen goes dark.</p><p>From familiar worlds to new adventures, every song is a chance to experience a story a little differently. Come listen, explore, and find your next favorite.</p><div class="tags"><span class="tag">Nerdcore</span><span class="tag">Gaming</span><span class="tag">Animation</span><span class="tag">Original music</span></div></div></section>
-<div class="cards" aria-label="What inspires the music"><article class="card"><div class="card-icon" aria-hidden="true">♫</div><h3>Music with a story</h3><p>Original songs inspired by characters and the worlds around them.</p></article><article class="card"><div class="card-icon" aria-hidden="true">✦</div><h3>Worlds you know</h3><p>Games and animation, heard from a different perspective.</p></article><article class="card"><div class="card-icon" aria-hidden="true">▶</div><h3>All on YouTube</h3><p>Discover the videos and find something new to listen to.</p></article></div>
-<section class="feature" id="watch"><div class="feature-copy"><div class="section-kicker">02 / The channel</div><h2>Press play.<br>Stay a while.</h2><p>Find the music, explore the videos, and step into the world of Yaspieze on YouTube.</p><a class="button" href="https://www.youtube.com/@yaspieze/videos">Explore the videos <span aria-hidden="true">↗</span></a></div><div class="feature-art" role="img" aria-label="Yaspieze channel artwork"></div></section>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-bg" src="assets/img/banner-upscaled.webp" alt="" fetchpriority="high" decoding="async">
+    <div class="hero-veil" aria-hidden="true"></div>
+    <img class="showcase" src="assets/img/character-mic.webp" width="480" height="1085" alt="Yaspieze's purple-haired character holding a microphone" fetchpriority="high">
+    <div class="wrap hero-inner">
+      <span class="badge"><i></i>New worlds in every upload</span>
+      <h1 id="hero-title">The nerdcore channel<br><span class="accent">made for you.</span></h1>
+      <p class="sub">Original songs about the games, stories and animated worlds you love. Free to watch, made for the fans.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://www.youtube.com/@yaspieze?sub_confirmation=1"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5a2.7 2.7 0 0 0-1.9 1.9A28 28 0 0 0 2 12a28 28 0 0 0-.4-4.8ZM10 15.2V8.8l5.5 3.2-5.5 3.2Z"/></svg>Subscribe on YouTube</a>
+        <a class="ghost-link" href="#videos">Watch the videos →</a>
+      </div>
+      <div class="stats" aria-label="Channel highlights">
+        <div class="stat"><b>Original</b><span>songs &amp; stories, made from scratch</span></div>
+        <div class="stat"><b>Nerdcore</b><span>gaming, anime &amp; beyond</span></div>
+        <div class="stat"><b>Free</b><span>every video, for everyone</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="block flow" id="channel" aria-labelledby="flow-title">
+      <h2 class="split" id="flow-title"><span>All of this</span><span class="dim">on the channel.</span></h2>
+      <p class="lead">One channel, many worlds. Here's what you'll find when you hit play.</p>
+      <input type="radio" name="flow" id="t1" checked><input type="radio" name="flow" id="t2"><input type="radio" name="flow" id="t3"><input type="radio" name="flow" id="t4"><input type="radio" name="flow" id="t5">
+      <div class="tabs" role="tablist" aria-label="Channel highlights">
+        <label for="t1" role="tab">Original songs</label>
+        <label for="t2" role="tab">Story-driven</label>
+        <label for="t3" role="tab">Gaming &amp; anime</label>
+        <label for="t4" role="tab">Made for fans</label>
+        <label for="t5" role="tab">Always free</label>
+      </div>
+      <div class="stage">
+        <div class="panel p1"><div class="panel-copy"><h3>Original songs</h3><p>Every track is written and produced for the channel — no covers, no filler. Just new music inspired by the worlds you already love.</p><a class="ghost-link" href="https://www.youtube.com/@yaspieze/videos">Hear them →</a></div><div class="panel-art"><img src="assets/img/character-point-right.webp" width="480" height="1047" alt="" loading="lazy"></div></div>
+        <div class="panel p2"><div class="panel-copy"><h3>Story-driven</h3><p>Characters, lore and moments that stayed with you — retold as songs. Each upload is a new chapter to step into.</p><a class="ghost-link" href="https://www.youtube.com/@yaspieze/videos">Explore the stories →</a></div><div class="panel-art"><img src="assets/img/character-peace.webp" width="480" height="503" alt="" loading="lazy"></div></div>
+        <div class="panel p3"><div class="panel-copy"><h3>Gaming &amp; anime</h3><p>From boss fights to quiet endings, from weeknight streams to all-time favorites — if you love it, it might become a song.</p><a class="ghost-link" href="https://www.youtube.com/@yaspieze/videos">Find your world →</a></div><div class="panel-art"><img src="assets/img/character-shrug.webp" width="480" height="874" alt="" loading="lazy"></div></div>
+        <div class="panel p4"><div class="panel-copy"><h3>Made for fans</h3><p>This channel exists because of its listeners. Comments, requests and community ideas shape where the music goes next.</p><a class="ghost-link" href="https://www.youtube.com/@yaspieze/videos">Join in →</a></div><div class="panel-art"><img src="assets/img/character-point-left.webp" width="480" height="1044" alt="" loading="lazy"></div></div>
+        <div class="panel p5"><div class="panel-copy"><h3>Always free</h3><p>Every video is free to watch on YouTube, forever. Press play, stay a while, and bring a friend.</p><a class="ghost-link" href="https://www.youtube.com/@yaspieze/videos">Start watching →</a></div><div class="panel-art"><img src="assets/img/character-mic.webp" width="480" height="1085" alt="" loading="lazy"></div></div>
+      </div>
+    </section>
+
+    <section class="block" id="music" aria-labelledby="music-title">
+      <h2 class="split" id="music-title"><span>The music.</span><span class="dim">Start here.</span></h2>
+      <p class="lead">Not sure where to begin? Pick a lane — every one of them leads somewhere good.</p>
+      <div class="duo">
+        <div>
+          <div class="feat"><h3>Every song its own world</h3><p>Each upload stands alone. Jump in anywhere — there's no homework and no wrong order.</p></div>
+          <div class="feat"><h3>Stories you already love</h3><p>Built on the games, shows and characters you grew up with, heard from a new angle.</p></div>
+          <div class="feat"><h3>Made for the fans</h3><p>Requests and comments genuinely shape what comes next. Your favorite world could be one upload away.</p></div>
+          <div class="feat"><h3>Free to enjoy</h3><p>No paywalls, no exclusives. The whole channel is open to everyone, all the time.</p></div>
+        </div>
+        <div class="queue" aria-label="Where to start">
+          <div class="queue-head"><img src="assets/img/avatar.webp" width="34" height="34" alt=""><div><b>Up next on Yaspieze</b><span>youtube.com/@yaspieze</span></div></div>
+          <a class="qrow" href="https://www.youtube.com/@yaspieze/videos"><span class="qplay"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><div><b>The fan favorites</b><span>Videos · YouTube</span></div><span class="go">→</span></a>
+          <a class="qrow" href="https://www.youtube.com/@yaspieze/videos"><span class="qplay"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><div><b>Story songs</b><span>Videos · YouTube</span></div><span class="go">→</span></a>
+          <a class="qrow" href="https://www.youtube.com/@yaspieze/playlists"><span class="qplay"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><div><b>Playlists &amp; worlds</b><span>Playlists · YouTube</span></div><span class="go">→</span></a>
+          <a class="qrow" href="https://www.youtube.com/@yaspieze/about"><span class="qplay"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><div><b>About the channel</b><span>About · YouTube</span></div><span class="go">→</span></a>
+          <div class="queue-foot"><a class="btn" href="https://www.youtube.com/@yaspieze/videos"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>Open YouTube</a></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="videos" aria-labelledby="videos-title">
+      <h2 class="split" id="videos-title"><span>Fresh uploads.</span><span class="dim">Worth watching.</span></h2>
+      <p class="lead">A taste of the channel — the full collection lives on YouTube.</p>
+      <div class="cards">
+        <a class="card" href="https://www.youtube.com/@yaspieze/videos"><img class="card-art" src="assets/img/character-peace.webp" width="480" height="503" alt="" loading="lazy"><div class="card-body"><div class="tagrow"><span class="tag">Original song</span><span>YouTube</span></div><h3>The anthems</h3><p>Big choruses for the worlds you love. Start here if it's your first visit.</p></div></a>
+        <a class="card" href="https://www.youtube.com/@yaspieze/videos"><img class="card-art" src="assets/img/character-shrug.webp" width="480" height="874" alt="" loading="lazy"><div class="card-body"><div class="tagrow"><span class="tag">Story song</span><span>YouTube</span></div><h3>Stories in song</h3><p>Characters and lore, retold track by track. Bring your theories.</p></div></a>
+        <a class="card" href="https://www.youtube.com/@yaspieze/playlists"><img class="card-art" src="assets/img/character-point-left.webp" width="480" height="1044" alt="" loading="lazy"><div class="card-body"><div class="tagrow"><span class="tag">Playlists</span><span>YouTube</span></div><h3>Worlds to explore</h3><p>Follow a playlist and fall into a whole world of songs at once.</p></div></a>
+      </div>
+      <a class="more" href="https://www.youtube.com/@yaspieze/videos">All videos →</a>
+    </section>
+
+    <section class="block" id="faq" aria-labelledby="faq-title">
+      <h2 class="split" id="faq-title"><span>Questions?</span><span class="dim">Answered.</span></h2>
+      <p class="lead">The essentials, briefly.</p>
+      <div class="faq-grid">
+        <div class="faq">
+          <details open><summary>Is the music free to listen to?<span class="x">+</span></summary><p>Yes. Every video on the channel is free to watch on YouTube — no subscription, no paywall, nothing locked away.</p></details>
+          <details><summary>What is nerdcore?<span class="x">+</span></summary><p>Music about the things fans love: games, anime, internet culture and the stories in between. Think of it as a love letter to fandom, with a beat.</p></details>
+          <details><summary>What are the songs about?<span class="x">+</span></summary><p>Characters, worlds and moments from gaming and animation — familiar stories heard from a different perspective.</p></details>
+          <details><summary>How often are there new uploads?<span class="x">+</span></summary><p>New worlds land regularly. Subscribe and turn on notifications so you never miss an upload.</p></details>
+          <details><summary>Can I request a song?<span class="x">+</span></summary><p>Absolutely — requests and ideas from listeners shape what comes next. Drop yours in the comments on YouTube.</p></details>
+          <details><summary>Where else can I find Yaspieze?<span class="x">+</span></summary><p>YouTube is home. Everything starts there, and the about page has whatever else you need.</p></details>
+        </div>
+        <div class="side">
+          <a class="side-card" href="https://www.youtube.com/@yaspieze?sub_confirmation=1"><b>YouTube</b><p>New worlds, straight to your feed. Subscribe so you never miss an upload.</p><span class="go">Subscribe →</span></a>
+          <a class="side-card" href="https://www.youtube.com/@yaspieze/videos"><b>Got an idea?</b><p>A world you want to hear as a song? Leave it in the comments on any video.</p><span class="go">Comment →</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="closing" aria-labelledby="closing-title">
+    <img class="bg" src="assets/img/banner-upscaled.webp" alt="" loading="lazy">
+    <div class="closing-veil" aria-hidden="true"></div>
+    <div class="wrap closing-inner">
+      <div class="kicker">Free, and one click away</div>
+      <h2 class="split" id="closing-title"><span>Ready when you are.</span><span class="dim">Hit subscribe.</span></h2>
+      <p class="lead">Join the listeners turning their favorite worlds into music.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://www.youtube.com/@yaspieze?sub_confirmation=1"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.2a2.7 2.7 0 0 0-1.9-1.9C18 4.8 12 4.8 12 4.8s-6 0-7.7.5a2.7 2.7 0 0 0-1.9 1.9A28 28 0 0 0 2 12a28 28 0 0 0-.4-4.8ZM10 15.2V8.8l5.5 3.2-5.5 3.2Z"/></svg>Subscribe on YouTube</a>
+      </div>
+      <p class="fine">Just browsing? <a href="https://www.youtube.com/@yaspieze/videos">Explore the videos first.</a></p>
+    </div>
+  </section>
 </main>
-<footer class="wrap footer"><a class="brand" href="#top"><img src="assets/img/avatar.webp" width="28" height="28" alt="">yaspieze<span style="color:#ce9af5">.</span></a><span>Music for other worlds. Made with imagination.</span><a href="https://www.youtube.com/@yaspieze">Find me on YouTube ↗</a></footer>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-lead">
+        <a class="brand" href="#top"><img src="assets/img/avatar.webp" width="32" height="32" alt="">yaspieze<b>.</b></a>
+        <p>Nerdcore music about the games, stories and animated worlds you love. Made with imagination.</p>
+      </div>
+      <nav class="foot-col" aria-label="Watch"><h4>Watch</h4><a href="https://www.youtube.com/@yaspieze/videos">Latest videos</a><a href="https://www.youtube.com/@yaspieze/playlists">Playlists</a><a href="https://www.youtube.com/@yaspieze/about">About the channel</a></nav>
+      <nav class="foot-col" aria-label="Channel"><h4>Channel</h4><a href="https://www.youtube.com/@yaspieze">YouTube home</a><a href="https://www.youtube.com/@yaspieze?sub_confirmation=1">Subscribe</a></nav>
+    </div>
+    <div class="wordmark" aria-hidden="true">YASPIEZE</div>
+    <div class="foot-bar"><span>© 2026 Yaspieze. All worlds reserved.</span><a href="https://www.youtube.com/@yaspieze">Find me on YouTube ↗</a></div>
+  </div>
+</footer>
 </body>
 </html>
