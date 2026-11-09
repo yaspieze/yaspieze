@@ -4,11 +4,13 @@ import Lenis from 'lenis';
    without JavaScript and respect the browser's reduced-motion preference. */
 ((): void => {
   'use strict';
-  // Smooth mouse-wheel movement while keeping touch and reduced-motion native.
+  // Mouse and trackpad smoothing is desktop-only. Phones, tablets and users
+  // requesting reduced motion use the browser's native scrolling instead.
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const desktopScroll = window.matchMedia('(min-width: 801px) and (hover: hover) and (pointer: fine)');
   let smooth: Lenis | null = null;
   const syncSmoothScroll = (): void => {
-    if (reducedMotion.matches) {
+    if (reducedMotion.matches || !desktopScroll.matches) {
       if (smooth) { smooth.destroy(); smooth = null; }
     } else if (!smooth) {
       smooth = new Lenis({ autoRaf: true, smoothWheel: true, syncTouch: false, lerp: 0.085, wheelMultiplier: 0.95, anchors: true });
@@ -18,7 +20,8 @@ import Lenis from 'lenis';
   // Keep one instance for the lifetime of the page. Short-lived layout changes
   // (loading, browser chrome, media and viewport resizes) must not destroy it.
   window.addEventListener('pageshow', () => { smooth?.resize(); });
-  if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncSmoothScroll);
+  reducedMotion.addEventListener('change', syncSmoothScroll);
+  desktopScroll.addEventListener('change', syncSmoothScroll);
   const loader = document.getElementById('bootLoader');
   if (loader && document.documentElement.classList.contains('boot-loading')) {
     const image = loader.querySelector<HTMLImageElement>('img');

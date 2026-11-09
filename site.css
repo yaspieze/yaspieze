@@ -97,7 +97,8 @@ body{overflow-x:clip}
 
 /* Fluid wheel scrolling. Touch and reduced-motion remain browser-native. */
 html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
+html.lenis{scroll-behavior:auto!important}
+@media(max-width:800px), (hover:none), (pointer:coarse){html{scroll-behavior:auto}}
 .lenis.lenis-stopped{overflow:clip}
 
 /* Illuminated glass: soft surface tint, a fine white edge, and a gentle halo. */
