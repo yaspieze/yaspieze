@@ -53,3 +53,10 @@ body{overflow-x:clip}
 @keyframes boot-failsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
 @media(prefers-reduced-motion:reduce){.boot-loader img,.boot-halo{animation:none}.boot-loading .boot-loader{animation:boot-failsafe .01s 2s forwards;transition:none}}
 @media(prefers-reduced-motion:reduce){.boot-loading .boot-loader{animation:boot-failsafe .01s 2s forwards!important}}
+
+/* Original YouTube channel artwork, placed between navigation and hero. */
+.channel-banner{padding-top:108px}
+.channel-banner img{display:block;width:100%;height:auto;aspect-ratio:2560/424;object-fit:cover;object-position:center;border:1px solid #ffffff1a;border-radius:12px}
+.channel-banner + main .artist-hero{min-height:560px;padding-top:95px}
+@media(max-width:800px){.channel-banner{padding-top:100px}.channel-banner img{height:150px;aspect-ratio:auto;object-position:center}.channel-banner + main .artist-hero{min-height:510px;padding-top:90px}}
+@media(max-width:520px){.channel-banner{padding-top:88px}.channel-banner img{height:120px}.channel-banner + main .artist-hero{min-height:450px;padding-top:80px}}
