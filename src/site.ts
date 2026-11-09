@@ -126,4 +126,68 @@
   window.addEventListener('keydown', (event: KeyboardEvent) => { if (['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '].includes(event.key)) cancel(); });
   window.addEventListener('hashchange', cancel);
   if (motion.addEventListener) motion.addEventListener('change', cancel);
+
+  // Reveal individual pieces as they enter the viewport. We never hide content
+  // unless the observer is available, and never hide content already in view.
+  const animatedSelectors = [
+    '.section-top', '.player', '.info-card', '.about-grid > div', '.topics',
+    '.faq-intro', '.faq-item', '.closing-box', '.page-card', '.page-small',
+    '.page-section-head', '.page-player', '.footer-main'
+  ];
+  if ('IntersectionObserver' in window && !motion.matches) {
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('motion-in');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -3% 0px' });
+    document.querySelectorAll<HTMLElement>(animatedSelectors.join(',')).forEach((element, index) => {
+      if (element.getBoundingClientRect().top < window.innerHeight * .92) return;
+      element.style.setProperty('--reveal-x', `${index % 2 === 0 ? -44 : 44}px`);
+      element.style.setProperty('--reveal-rotation', `${index % 2 === 0 ? -1 : 1}deg`);
+      element.style.setProperty('--reveal-delay', `${Math.min(index % 3 * 70, 140)}ms`);
+      element.classList.add('motion-pending');
+      revealObserver.observe(element);
+    });
+    if (motion.addEventListener) motion.addEventListener('change', () => {
+      if (motion.matches) {
+        revealObserver.disconnect();
+        document.querySelectorAll('.motion-pending').forEach((el) => el.classList.add('motion-in'));
+      }
+    });
+  }
+
+  // Vertical scrolling gently carries the decorative ribbon sideways; it never
+  // captures wheel events or changes the document's real scroll direction.
+  const bands = Array.from(document.querySelectorAll<HTMLElement>('.motion-band'));
+  const orbit = document.querySelector<HTMLElement>('.hero-orbit');
+  let visualFrame = 0;
+  const updateVisuals = (): void => {
+    visualFrame = 0;
+    if (motion.matches) return;
+    const height = window.innerHeight || 1;
+    bands.forEach((band) => {
+      const rect = band.getBoundingClientRect();
+      if (rect.bottom < -100 || rect.top > height + 100) return;
+      const progress = Math.max(0, Math.min(1, (height - rect.top) / (height + rect.height)));
+      const track = band.querySelector<HTMLElement>('.motion-track');
+      if (track) track.style.setProperty('--track-x', `${Math.round(-150 + progress * 190)}px`);
+    });
+    if (orbit) {
+      const rect = orbit.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < height) {
+        const progress = Math.max(0, Math.min(1, (height - rect.top) / (height + rect.height)));
+        orbit.style.setProperty('--orbit-x', `${Math.round((progress - .5) * 38)}px`);
+        orbit.style.setProperty('--orbit-y', `${Math.round((progress - .5) * -14)}px`);
+        orbit.style.setProperty('--orbit-rotation', `${Math.round((progress - .5) * 24)}deg`);
+      }
+    }
+  };
+  const queueVisuals = (): void => { if (!visualFrame && !motion.matches) visualFrame = requestAnimationFrame(updateVisuals); };
+  window.addEventListener('scroll', queueVisuals, { passive: true });
+  window.addEventListener('resize', queueVisuals, { passive: true });
+  if (motion.addEventListener) motion.addEventListener('change', queueVisuals);
+  queueVisuals();
 })();
