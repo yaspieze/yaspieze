@@ -8,16 +8,16 @@ import Lenis from 'lenis';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   let smooth: Lenis | null = null;
   const syncSmoothScroll = (): void => {
-    const scrollable = document.documentElement.scrollHeight > window.innerHeight + 2;
-    if (reducedMotion.matches || !scrollable) {
+    if (reducedMotion.matches) {
       if (smooth) { smooth.destroy(); smooth = null; }
     } else if (!smooth) {
       smooth = new Lenis({ autoRaf: true, smoothWheel: true, syncTouch: false, lerp: 0.085, wheelMultiplier: 0.95, anchors: true });
     }
   };
   syncSmoothScroll();
-  window.addEventListener('resize', syncSmoothScroll, { passive: true });
-  if ('ResizeObserver' in window) new ResizeObserver(syncSmoothScroll).observe(document.body);
+  // Keep one instance for the lifetime of the page. Short-lived layout changes
+  // (loading, browser chrome, media and viewport resizes) must not destroy it.
+  window.addEventListener('pageshow', () => { smooth?.resize(); });
   if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncSmoothScroll);
   const loader = document.getElementById('bootLoader');
   if (loader && document.documentElement.classList.contains('boot-loading')) {

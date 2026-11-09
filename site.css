@@ -119,3 +119,9 @@ html.lenis,html.lenis body{height:auto}
 @media(max-width:800px){.artist-profile-simple{grid-template-columns:1fr;gap:30px}.artist-profile-photo{max-width:480px}.artist-footer-grid{grid-template-columns:repeat(3,1fr)}.artist-footer-intro{grid-column:1/-1}}
 @media(max-width:520px){.artist-footer-grid{grid-template-columns:repeat(2,1fr);gap:30px}.artist-footer-intro{grid-column:1/-1}.artist-footer-bar{flex-wrap:wrap}.scroll-mouse{width:17px;height:25px}.latest-title{margin-bottom:25px}}
 @media(prefers-reduced-motion:reduce){.scroll-mouse i{animation:none}}
+/* Monochrome navigation icons, with the original paths and opacity intact. */
+.site-header .nav-links{gap:clamp(12px,1.7vw,26px)}
+.site-header .nav-links a,.simple-menu nav a{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.site-header .nav-icon{width:17px;height:17px;flex:0 0 17px;color:currentColor;transition:color .2s ease}
+.simple-menu nav a{display:flex;gap:10px}.simple-menu nav .nav-icon{width:18px;height:18px;flex-basis:18px}
+@media (min-width:801px) and (max-width:1050px){.site-header .nav-links{margin-left:155px;gap:11px}.site-header .nav-links a{font-size:.78rem;gap:4px}.site-header .nav-icon{width:15px;height:15px;flex-basis:15px}}
