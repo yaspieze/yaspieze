@@ -1,14 +1,5 @@
-# Security headers for GitHub Pages behind Cloudflare.
-# GitHub Pages itself does not read this file; Cloudflare Pages does,
-# and with Cloudflare in front of fngl.ir the same policy is applied by a
-# Transform Rule / Response Header Rule in the Cloudflare dashboard.
 /*
   X-Content-Type-Options: nosniff
-  X-Frame-Options: SAMEORIGIN
-  Referrer-Policy: no-referrer
-  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
-  Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: same-origin
-  X-Permitted-Cross-Domain-Policies: none
-  Content-Security-Policy: default-src 'none'; script-src 'sha256-ScXwKYwvxvaHnECLHWOMjDf0/8MQ09e032Q7z1OERGI=' 'sha256-ZV6Ilxrf/vh349fWcpuHU0CkY5fj0RmBGNbgpFyCK/U=' 'sha256-ZbjZB0sAikNEv250j9Za/2+g542B4hJn0Ax5MB7bhEk=' 'sha256-pXHEMCl5GztgrhqmJb3YeUuBPwKalkue5xO7G+rJ96s='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; frame-src https://www.youtube-nocookie.com; connect-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; worker-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Content-Security-Policy: default-src 'none'; script-src 'sha256-/x7W7R75k8Roq0WaVRQX9blP4OufE5xbAdzklGxsgpw=' 'sha256-qFOcQhDPeoegezP3eycdBSwwGTkvqswd2l7vEEyMyJE='; style-src 'unsafe-inline'; img-src 'self' data:; font-src 'self'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
