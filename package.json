@@ -1,0 +1,14 @@
+{
+  "name": "yaspieze-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static artist website with TypeScript-powered interactions",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check": "npm run typecheck && npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

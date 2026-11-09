@@ -12,3 +12,14 @@ I'm always happy to hear from other creators, especially fellow nerdcore artists
 - GitHub: @yaspieze
 Other socials on my youtube page.
 Thanks for checking out my profile. 💜
+
+## Website development
+
+The site uses HTML for pages, CSS for presentation, and TypeScript for its interactive behavior. It is deployed as static files, so no server runtime is required. The compiled browser script `fresh/site.js` is committed to keep the existing GitHub Pages deployment simple.
+
+```sh
+npm ci
+npm run check
+```
+
+Edit `src/site.ts`, then run `npm run build` and commit the updated `fresh/site.js` alongside your changes. Open the site through a local static web server to test navigation and assets.
