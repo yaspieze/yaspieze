@@ -126,3 +126,7 @@ html.lenis{scroll-behavior:auto!important}
 .site-header .nav-icon{width:17px;height:17px;flex:0 0 17px;color:currentColor;transition:color .2s ease}
 .simple-menu nav a{display:flex;gap:10px}.simple-menu nav .nav-icon{width:18px;height:18px;flex-basis:18px}
 @media (min-width:801px) and (max-width:1050px){.site-header .nav-links{margin-left:155px;gap:11px}.site-header .nav-links a{font-size:.78rem;gap:4px}.site-header .nav-icon{width:15px;height:15px;flex-basis:15px}}
+/* The latest upload: the unadorned YouTube thumbnail, linking to the video. */
+.latest-thumbnail{display:block;width:min(100%,1000px);aspect-ratio:16/9;margin-inline:auto;overflow:hidden;border-radius:16px;background:#121016}
+.latest-thumbnail img{display:block;width:100%;height:100%;object-fit:cover}
+.latest-thumbnail:focus-visible{outline:2px solid var(--purple);outline-offset:5px}
