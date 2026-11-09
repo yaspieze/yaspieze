@@ -1,7 +1,24 @@
+import Lenis from 'lenis';
+
 /* Small progressive enhancements. Native scrolling and navigation remain usable
    without JavaScript and respect the browser's reduced-motion preference. */
 ((): void => {
   'use strict';
+  // Smooth mouse-wheel movement while keeping touch and reduced-motion native.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let smooth: Lenis | null = null;
+  const syncSmoothScroll = (): void => {
+    const scrollable = document.documentElement.scrollHeight > window.innerHeight + 2;
+    if (reducedMotion.matches || !scrollable) {
+      if (smooth) { smooth.destroy(); smooth = null; }
+    } else if (!smooth) {
+      smooth = new Lenis({ autoRaf: true, smoothWheel: true, syncTouch: false, lerp: 0.085, wheelMultiplier: 0.95, anchors: true });
+    }
+  };
+  syncSmoothScroll();
+  window.addEventListener('resize', syncSmoothScroll, { passive: true });
+  if ('ResizeObserver' in window) new ResizeObserver(syncSmoothScroll).observe(document.body);
+  if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', syncSmoothScroll);
   const loader = document.getElementById('bootLoader');
   if (loader && document.documentElement.classList.contains('boot-loading')) {
     const image = loader.querySelector<HTMLImageElement>('img');
