@@ -60,3 +60,24 @@ body{overflow-x:clip}
 .channel-banner + main .artist-hero{min-height:560px;padding-top:95px}
 @media(max-width:800px){.channel-banner{padding-top:100px}.channel-banner img{height:150px;aspect-ratio:auto;object-position:center}.channel-banner + main .artist-hero{min-height:510px;padding-top:90px}}
 @media(max-width:520px){.channel-banner{padding-top:88px}.channel-banner img{height:120px}.channel-banner + main .artist-hero{min-height:450px;padding-top:80px}}
+
+/* At the top: just the large white logo. As you scroll: full navigation. */
+.site-header .nav-shell{transition:width .6s var(--ease),background .35s ease,border-color .35s ease,box-shadow .35s ease}
+.site-header .nav-inner{position:relative;transition:height .6s var(--ease)}
+.site-header .nav-inner>.brand{position:absolute;left:16px;top:50%;transform:translate(0,-50%);z-index:2;transition:left .6s var(--ease),transform .6s var(--ease)}
+.site-header .nav-inner>.brand img{flex:none;transition:width .6s var(--ease),height .6s var(--ease),filter .6s var(--ease)}
+.site-header .nav-inner>.brand .brand-name{white-space:nowrap;transition:opacity .25s ease,visibility .25s ease}
+.site-header .nav-links{margin-left:180px;transition:opacity .28s ease,visibility .28s ease}
+.site-header .nav-right{margin-left:auto;transition:opacity .28s ease,visibility .28s ease}
+.nav-is-collapsed .site-header .nav-shell{width:min(250px,calc(100% - 32px));border-radius:22px;background:#0a090de8;box-shadow:0 20px 65px #0009}
+.nav-is-collapsed .site-header .nav-inner{height:112px}
+.nav-is-collapsed .site-header .nav-inner>.brand{left:50%;transform:translate(-50%,-50%)}
+.nav-is-collapsed .site-header .nav-inner>.brand img{width:76px;height:76px;filter:drop-shadow(0 0 18px #b18cff65)}
+.nav-is-collapsed .site-header .nav-inner>.brand .brand-name{opacity:0;visibility:hidden;position:absolute}
+.nav-is-collapsed .site-header .nav-links,.nav-is-collapsed .site-header .nav-right{opacity:0;visibility:hidden;pointer-events:none}
+.channel-banner{padding-top:142px}
+@media(max-width:800px){.site-header .nav-links{margin-left:0}.site-header .nav-right{margin-left:auto}.channel-banner{padding-top:140px}}
+@media(max-width:520px){.channel-banner{padding-top:132px}}
+@media(prefers-reduced-motion:reduce){.site-header .nav-shell,.site-header .nav-inner,.site-header .nav-inner>.brand,.site-header .nav-inner>.brand img,.site-header .nav-links,.site-header .nav-right{transition:none}}
+/* Readable licensing information. */
+.license-main{max-width:940px}.license-intro{color:#c4bdca;font-size:1.08rem;line-height:1.8;max-width:70ch}.license-callout{border:1px solid #b18cff3d;border-radius:15px;background:linear-gradient(135deg,#24172f,#0d0b11);padding:26px;margin-bottom:24px}.license-callout strong{display:block;color:#fff;font-size:1.2rem;margin-bottom:8px}.license-callout p{color:#c7bdcc;line-height:1.75}.license-block{border-top:1px solid var(--line);padding:30px 0}.license-block h2{font:500 clamp(1.5rem,3vw,2rem)/1.2 Pixel,monospace;margin-bottom:16px}.license-block p,.license-block li{color:#b8b2bf;line-height:1.75}.license-block p+p{margin-top:14px}.license-block ul{padding-left:1.25em;margin:0}.license-block li+li{margin-top:12px}.license-block a{color:#d1b0ff;text-decoration:underline;text-underline-offset:3px}.license-block strong{color:#efebf1;font-weight:600}.license-credit{margin:18px 0;padding:16px 18px;border-left:2px solid var(--purple);background:#ffffff08;border-radius:0 8px 8px 0;color:#ede6f1;font-size:.95rem}

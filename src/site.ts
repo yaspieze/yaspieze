@@ -12,7 +12,6 @@
       finished = true;
       window.setTimeout(() => {
         loader.classList.add('boot-done');
-        try { sessionStorage.setItem('yaspz-intro-v1', '1'); } catch (_) { /* storage is optional */ }
       }, Math.max(0, 1100 - (Date.now() - began)));
     };
     if (!image || image.complete) finish();
@@ -22,6 +21,11 @@
     }
     window.setTimeout(finish, 3000);
   }
+  const updateNavigation = (): void => {
+    document.documentElement.classList.toggle('nav-is-collapsed', window.scrollY < 40);
+  };
+  window.addEventListener('scroll', updateNavigation, { passive: true });
+  updateNavigation();
   document.querySelectorAll<HTMLDetailsElement>('.simple-menu').forEach((menu) => {
     menu.querySelectorAll<HTMLAnchorElement>('a').forEach((link) => {
       link.addEventListener('click', () => { menu.open = false; });
