@@ -21,8 +21,10 @@
     }
     window.setTimeout(finish, 3000);
   }
+  // A small hysteresis prevents the header from flickering near the threshold.
   const updateNavigation = (): void => {
-    document.documentElement.classList.toggle('nav-is-collapsed', window.scrollY < 40);
+    if (window.scrollY <= 12) document.documentElement.classList.add('nav-is-collapsed');
+    else if (window.scrollY >= 64) document.documentElement.classList.remove('nav-is-collapsed');
   };
   window.addEventListener('scroll', updateNavigation, { passive: true });
   updateNavigation();

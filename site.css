@@ -81,3 +81,16 @@ body{overflow-x:clip}
 @media(prefers-reduced-motion:reduce){.site-header .nav-shell,.site-header .nav-inner,.site-header .nav-inner>.brand,.site-header .nav-inner>.brand img,.site-header .nav-links,.site-header .nav-right{transition:none}}
 /* Readable licensing information. */
 .license-main{max-width:940px}.license-intro{color:#c4bdca;font-size:1.08rem;line-height:1.8;max-width:70ch}.license-callout{border:1px solid #b18cff3d;border-radius:15px;background:linear-gradient(135deg,#24172f,#0d0b11);padding:26px;margin-bottom:24px}.license-callout strong{display:block;color:#fff;font-size:1.2rem;margin-bottom:8px}.license-callout p{color:#c7bdcc;line-height:1.75}.license-block{border-top:1px solid var(--line);padding:30px 0}.license-block h2{font:500 clamp(1.5rem,3vw,2rem)/1.2 Pixel,monospace;margin-bottom:16px}.license-block p,.license-block li{color:#b8b2bf;line-height:1.75}.license-block p+p{margin-top:14px}.license-block ul{padding-left:1.25em;margin:0}.license-block li+li{margin-top:12px}.license-block a{color:#d1b0ff;text-decoration:underline;text-underline-offset:3px}.license-block strong{color:#efebf1;font-weight:600}.license-credit{margin:18px 0;padding:16px 18px;border-left:2px solid var(--purple);background:#ffffff08;border-radius:0 8px 8px 0;color:#ede6f1;font-size:.95rem}
+
+/* The white mark is tightly cropped; the wordmark no longer changes the
+   moving logo's layout box, so the centre-to-left movement stays continuous. */
+.site-header .nav-shell{transition:width .8s cubic-bezier(.22,1,.36,1),border-radius .8s cubic-bezier(.22,1,.36,1),background .45s ease,border-color .45s ease,box-shadow .45s ease}
+.site-header .nav-inner{transition:height .8s cubic-bezier(.22,1,.36,1)}
+.site-header .nav-inner>.brand{gap:0;transition:left .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.site-header .nav-inner>.brand img{display:block;width:auto;height:34px;aspect-ratio:310/488;object-fit:contain;transition:height .8s cubic-bezier(.22,1,.36,1),filter .8s ease}
+.site-header .nav-inner>.brand .brand-name{position:absolute;left:calc(100% + 9px);top:50%;transform:translateY(-50%);transition:opacity .35s ease .16s,visibility .35s ease .16s}
+.nav-is-collapsed .site-header .nav-inner>.brand img{width:auto;height:78px}
+.nav-is-collapsed .site-header .nav-inner>.brand .brand-name{transition:opacity .18s ease,visibility .18s ease}
+.site-header .nav-links,.site-header .nav-right{transition:opacity .4s ease .15s,visibility .4s ease .15s}
+.nav-is-collapsed .site-header .nav-links,.nav-is-collapsed .site-header .nav-right{transition:opacity .18s ease,visibility .18s ease}
+@media(prefers-reduced-motion:reduce){.site-header .nav-shell,.site-header .nav-inner,.site-header .nav-inner>.brand,.site-header .nav-inner>.brand img,.site-header .nav-inner>.brand .brand-name,.site-header .nav-links,.site-header .nav-right{transition:none}}
