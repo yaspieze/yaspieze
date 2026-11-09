@@ -22,15 +22,6 @@ import Lenis from 'lenis';
   window.addEventListener('pageshow', () => { smooth?.resize(); });
   reducedMotion.addEventListener('change', syncSmoothScroll);
   desktopScroll.addEventListener('change', syncSmoothScroll);
-  type SiteConfig = { apiBase: string; turnstileSiteKey: string };
-  const configPromise: Promise<SiteConfig | null> = fetch('/backend-config.json', { cache: 'no-cache' })
-    .then(r => r.ok ? r.json() : null)
-    .then((value: unknown) => {
-      if (!value || typeof value !== 'object') return null;
-      const config = value as Record<string, unknown>;
-      if (typeof config.apiBase !== 'string' || !/^https:\/\/[a-z0-9-]+\.[a-z0-9-]+\.workers\.dev$/i.test(config.apiBase)) return null;
-      return { apiBase: config.apiBase, turnstileSiteKey: typeof config.turnstileSiteKey === 'string' ? config.turnstileSiteKey : '' };
-    }).catch(() => null);
   // YouTube's unofficial UULF playlist contains regular uploads, not Shorts.
   // Its RSS feed is converted to JSON by rss2json because
   // YouTube's feed does not allow direct cross-origin browser requests.
@@ -68,14 +59,6 @@ import Lenis from 'lenis';
       if (checking) return;
       checking = true;
       try {
-        const config = await configPromise;
-        if (config) {
-          const apiResponse = await fetch(`${config.apiBase}/api/latest`, { signal: AbortSignal.timeout(10000) });
-          if (!apiResponse.ok) return;
-          const video: unknown = await apiResponse.json();
-          if (video && typeof video === 'object' && 'id' in video && typeof video.id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(video.id) && 'title' in video && typeof video.title === 'string') applyVideo(video.id, video.title);
-          return;
-        }
         const response = await fetch(endpoint, { signal: AbortSignal.timeout(10000) });
         if (!response.ok) return;
         const data: unknown = await response.json();
@@ -97,43 +80,41 @@ import Lenis from 'lenis';
     window.setInterval(() => { if (!document.hidden) void refreshLatest(); }, 15 * 60 * 1000);
     document.addEventListener('visibilitychange', () => { if (!document.hidden) void refreshLatest(); });
   }
-  type Turnstile = { render: (element: HTMLElement, options: Record<string, unknown>) => string; reset: (id: string) => void };
-  const contactForm = document.querySelector<HTMLFormElement>('#contactForm');
-  if (contactForm) void configPromise.then(config => {
-    if (!config || !config.turnstileSiteKey) return;
-    const container = document.querySelector<HTMLElement>('#contactSection');
-    const widget = document.querySelector<HTMLElement>('#contactVerification');
-    const status = document.querySelector<HTMLElement>('#contactStatus');
-    const button = contactForm.querySelector<HTMLButtonElement>('button[type=submit]');
-    if (!container || !widget || !status || !button) return;
-    container.hidden = false;
-    let token = '';
-    let widgetId = '';
-    let turnstile: Turnstile | undefined;
-    const script = document.createElement('script');
-    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-    script.async = true;
-    script.onload = () => {
-      turnstile = (window as unknown as { turnstile?: Turnstile }).turnstile;
-      if (!turnstile) { status.textContent = 'Verification could not load. Please contact yappieze on Discord.'; return; }
-      widgetId = turnstile.render(widget, { sitekey: config.turnstileSiteKey, theme: 'dark', callback: (value: string) => { token = value; }, 'expired-callback': () => { token = ''; }, 'error-callback': () => { token = ''; status.textContent = 'Verification failed. Please try again.'; } });
+  // A light, playful pointer for mouse users only; touch and reduced motion
+  // retain the operating system cursor and never depend on this enhancement.
+  const finePointer = window.matchMedia('(min-width: 801px) and (hover: hover) and (pointer: fine)');
+  if (finePointer.matches && !reducedMotion.matches) {
+    const cursor = document.createElement('div');
+    cursor.className = 'play-cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+    cursor.innerHTML = '<span class="play-cursor-ring"></span><span class="play-cursor-dot"></span>';
+    document.body.append(cursor);
+    const ring = cursor.querySelector<HTMLElement>('.play-cursor-ring')!;
+    const dot = cursor.querySelector<HTMLElement>('.play-cursor-dot')!;
+    let x = 0, y = 0, rx = 0, ry = 0, frame = 0, started = false;
+    const draw = (): void => {
+      rx += (x - rx) * 0.22; ry += (y - ry) * 0.22;
+      ring.style.transform = `translate3d(${rx}px,${ry}px,0)`;
+      if (Math.abs(x - rx) + Math.abs(y - ry) > 0.15) frame = requestAnimationFrame(draw);
+      else frame = 0;
     };
-    script.onerror = () => { status.textContent = 'Verification could not load. Please contact yappieze on Discord.'; };
-    document.head.append(script);
-    contactForm.addEventListener('submit', async event => {
-      event.preventDefault();
-      if (!token) { status.textContent = 'Please complete the verification first.'; return; }
-      const fields = new FormData(contactForm);
-      button.disabled = true; status.textContent = 'Sending…';
-      try {
-        const response = await fetch(`${config.apiBase}/api/contact`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: fields.get('name'), reply: fields.get('reply'), message: fields.get('message'), token }), signal: AbortSignal.timeout(15000) });
-        const result: { error?: string } = await response.json();
-        if (!response.ok) throw new Error(result.error || 'Unable to send your message.');
-        contactForm.reset(); status.textContent = 'Message sent. Thank you!';
-      } catch (error) { status.textContent = error instanceof Error ? error.message : 'Could not send your message. Please contact yappieze on Discord.'; }
-      finally { token = ''; if (turnstile && widgetId) turnstile.reset(widgetId); button.disabled = false; }
-    });
-  });
+    const hide = (): void => { document.documentElement.classList.remove('cursor-active'); cursor.classList.remove('is-visible'); };
+    window.addEventListener('pointermove', (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse' || reducedMotion.matches || !finePointer.matches) { hide(); return; }
+      const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest('input, textarea, select, iframe, [contenteditable="true"]')) { hide(); return; }
+      x = event.clientX; y = event.clientY;
+      if (!started) { rx = x; ry = y; started = true; }
+      dot.style.transform = `translate3d(${x}px,${y}px,0)`;
+      cursor.classList.toggle('is-link', !!target?.closest('a, button, summary, [role="button"]'));
+      cursor.classList.add('is-visible'); document.documentElement.classList.add('cursor-active');
+      if (!frame) frame = requestAnimationFrame(draw);
+    }, { passive: true });
+    document.addEventListener('pointerout', (event: PointerEvent) => { if (!event.relatedTarget) hide(); });
+    window.addEventListener('blur', hide);
+    reducedMotion.addEventListener('change', hide);
+    finePointer.addEventListener('change', hide);
+  }
   const loader = document.getElementById('bootLoader');
   if (loader && document.documentElement.classList.contains('boot-loading')) {
     const image = loader.querySelector<HTMLImageElement>('img');
