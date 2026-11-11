@@ -8,3 +8,7 @@ Thumbs.db
 # nothing here is built, but keep stray output out
 node_modules/
 *.log
+
+# Python cache
+__pycache__/
+*.py[cod]
