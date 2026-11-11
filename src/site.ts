@@ -93,26 +93,38 @@ import Lenis from 'lenis';
   }
   // Locally hosted songs are used instead of hiding a YouTube player. Browsers
   // may block autoplay with sound, so the speaker button starts it on a click.
-  const songs = ['/fresh/audio/run-away.mp3', '/fresh/audio/undisclosed.mp3'];
+  type Song = { id: string; title: string; src: string };
+  let songs: Song[] = [
+    { id: 'k8ASohZN9DE', title: 'Run Away', src: '/fresh/audio/run-away.mp3' },
+    { id: '901NBsNnias', title: 'UNDISCLOSED', src: '/fresh/audio/undisclosed.mp3' }
+  ];
   const storageKey = 'yaspieze-background-audio';
-  type AudioState = { enabled: boolean; track: number; position: number };
+  type AudioState = { enabled: boolean; track: number; position: number; id?: string };
   let audioState: AudioState = { enabled: true, track: 0, position: 0 };
   try {
     const saved: unknown = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
     if (saved && typeof saved === 'object') {
       const state = saved as Partial<AudioState>;
       if (typeof state.enabled === 'boolean') audioState.enabled = state.enabled;
+      if (typeof state.id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(state.id)) audioState.id = state.id;
       if (Number.isInteger(state.track) && typeof state.track === 'number' && state.track >= 0 && state.track < songs.length) audioState.track = state.track;
       if (typeof state.position === 'number' && Number.isFinite(state.position) && state.position >= 0) audioState.position = state.position;
     }
   } catch { /* Storage is optional. */ }
+  const savedTrackId = audioState.id;
   const music = new Audio();
   music.preload = 'none';
   music.volume = 0.08;
-  music.src = songs[audioState.track];
+  music.src = songs[audioState.track].src;
   const speaker = document.createElement('button');
   speaker.type = 'button';
   speaker.className = 'sound-toggle';
+  const soundWidget = document.createElement('div');
+  soundWidget.className = 'sound-widget';
+  const nowPlaying = document.createElement('span');
+  nowPlaying.className = 'now-playing';
+  const updateTitle = (): void => { nowPlaying.textContent = `Now Playing: ${songs[audioState.track].title}`; };
+  updateTitle();
   const onIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.8 8.5H4.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.3L11 19V5Z" fill="currentColor"/><path d="M14.5 9a4.2 4.2 0 0 1 0 6m2.7-8.5a7.8 7.8 0 0 1 0 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const offIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.8 8.5H4.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.3L11 19V5Z" fill="currentColor"/><path d="m15 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const updateSpeaker = (): void => {
@@ -123,6 +135,7 @@ import Lenis from 'lenis';
   };
   const saveAudio = (): void => {
     if (Number.isFinite(music.currentTime) && music.currentTime > 0) audioState.position = music.currentTime;
+    audioState.id = songs[audioState.track].id;
     try { sessionStorage.setItem(storageKey, JSON.stringify(audioState)); } catch { /* Storage is optional. */ }
   };
   let restorePosition = audioState.position;
@@ -136,7 +149,7 @@ import Lenis from 'lenis';
   music.addEventListener('timeupdate', () => { if (Date.now() - lastSaved >= 2000) { lastSaved = Date.now(); saveAudio(); } });
   music.addEventListener('ended', () => {
     audioState.track = (audioState.track + 1) % songs.length; audioState.position = 0; restorePosition = 0;
-    music.src = songs[audioState.track]; saveAudio();
+    music.src = songs[audioState.track].src; updateTitle(); saveAudio();
     if (audioState.enabled) void music.play().catch(updateSpeaker);
   });
   speaker.addEventListener('click', () => {
@@ -144,9 +157,31 @@ import Lenis from 'lenis';
     else { audioState.enabled = true; saveAudio(); void music.play().then(updateSpeaker).catch(updateSpeaker); }
   });
   window.addEventListener('pagehide', saveAudio);
-  document.body.append(speaker);
+  soundWidget.append(speaker, nowPlaying);
+  document.body.append(soundWidget);
   updateSpeaker();
   if (audioState.enabled) void music.play().then(updateSpeaker).catch(updateSpeaker);
+  // On an update, start the latest release from the manifest; once playback is
+  // underway, finish the current track rather than abruptly interrupting it.
+  void fetch('/fresh/audio/playlist.json', { cache: 'no-cache' }).then(response => response.ok ? response.json() : null).then((data: unknown) => {
+    if (!data || typeof data !== 'object' || !('tracks' in data) || !Array.isArray(data.tracks)) return;
+    const list = data.tracks.filter((item: unknown): item is Song => {
+      if (!item || typeof item !== 'object') return false;
+      const entry = item as Record<string, unknown>;
+      return typeof entry.id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(entry.id) && typeof entry.title === 'string' && entry.title.length > 0 && entry.title.length <= 200 && typeof entry.src === 'string' && /^\/fresh\/audio\/[A-Za-z0-9_-]+\.mp3$/.test(entry.src);
+    });
+    if (!list.length) return;
+    const currentId = songs[audioState.track].id;
+    const savedIndex = savedTrackId ? list.findIndex(song => song.id === savedTrackId) : -1;
+    const nextIndex = savedIndex >= 0 ? savedIndex : 0;
+    const next = list[nextIndex];
+    if (next.id !== currentId || next.src !== songs[audioState.track].src) {
+      music.src = next.src;
+      if (next.id !== savedTrackId) { audioState.position = 0; restorePosition = 0; }
+    }
+    songs = list; audioState.track = nextIndex; updateTitle(); saveAudio();
+    if (audioState.enabled && music.paused) void music.play().then(updateSpeaker).catch(updateSpeaker);
+  }).catch(() => { /* Keep the local fallback playlist if unavailable. */ });
   // A light, playful pointer for mouse users only; touch and reduced motion
   // retain the operating system cursor and never depend on this enhancement.
   const finePointer = window.matchMedia('(min-width: 801px) and (hover: hover) and (pointer: fine)');

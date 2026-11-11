@@ -1,0 +1,33 @@
+name: Update background music
+on:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.MUSIC_UPDATE_TOKEN }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install yt-dlp and ffmpeg
+        run: |
+          python -m pip install -U yt-dlp
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
+      - name: Find and download newest music video
+        run: python scripts/update_music.py
+      - name: Publish changes
+        run: |
+          git add fresh/audio
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Update background music'
+          git push
