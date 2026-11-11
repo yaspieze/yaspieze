@@ -115,6 +115,17 @@ import Lenis from 'lenis';
     reducedMotion.addEventListener('change', hide);
     finePointer.addEventListener('change', hide);
   }
+  // Soft pointer-following light on buttons, with no dependency on JS to click.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reducedMotion.matches) {
+    document.querySelectorAll<HTMLElement>('.button, .nav-social a').forEach(button => {
+      button.addEventListener('pointermove', (event: PointerEvent) => {
+        if (event.pointerType !== 'mouse') return;
+        const rect = button.getBoundingClientRect();
+        button.style.setProperty('--glow-x', `${event.clientX - rect.left}px`);
+        button.style.setProperty('--glow-y', `${event.clientY - rect.top}px`);
+      }, { passive: true });
+    });
+  }
   const loader = document.getElementById('bootLoader');
   if (loader && document.documentElement.classList.contains('boot-loading')) {
     const image = loader.querySelector<HTMLImageElement>('img');
