@@ -147,6 +147,10 @@ import Lenis from 'lenis';
       finished = true;
       window.setTimeout(() => {
         loader.classList.add('boot-done');
+        if (!reducedMotion.matches && !document.documentElement.classList.contains('page-exiting')) {
+          document.documentElement.classList.add('page-entering');
+          window.setTimeout(() => document.documentElement.classList.remove('page-entering'), 650);
+        }
       }, Math.max(0, 1100 - (Date.now() - began)));
     };
     if (!image || image.complete) finish();
@@ -156,6 +160,27 @@ import Lenis from 'lenis';
     }
     window.setTimeout(finish, 3000);
   }
+  // Only intercept ordinary same-site page changes. In-page anchors, new tabs,
+  // downloads, external links and reduced-motion navigation remain native.
+  let navigating = false;
+  document.addEventListener('click', (event: MouseEvent) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || reducedMotion.matches || navigating) return;
+    const target = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
+    if (!target || target.hasAttribute('download') || (target.target && target.target.toLowerCase() !== '_self')) return;
+    let next: URL;
+    try { next = new URL(target.href, location.href); } catch { return; }
+    if (next.origin !== location.origin || !/^https?:$/.test(next.protocol)) return;
+    if (next.pathname === location.pathname && next.search === location.search) return;
+    event.preventDefault();
+    navigating = true;
+    document.documentElement.classList.remove('page-entering');
+    document.documentElement.classList.add('page-exiting');
+    window.setTimeout(() => { window.location.assign(next.href); }, 220);
+  });
+  window.addEventListener('pageshow', () => {
+    navigating = false;
+    document.documentElement.classList.remove('page-exiting');
+  });
   // A small hysteresis prevents the header from flickering near the threshold.
   const updateNavigation = (): void => {
     if (window.scrollY <= 12) document.documentElement.classList.add('nav-is-collapsed');
