@@ -51,10 +51,6 @@ import Lenis from 'lenis';
       };
       setThumbnail(`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`, `https://i.ytimg.com/vi/${id}/hqdefault.jpg`);
     };
-    try {
-      const saved: unknown = JSON.parse(localStorage.getItem('yaspieze-latest-regular-video') || 'null');
-      if (saved && typeof saved === 'object' && 'id' in saved && typeof saved.id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(saved.id) && 'title' in saved && typeof saved.title === 'string') applyVideo(saved.id, saved.title);
-    } catch { /* Storage is optional. */ }
     const refreshLatest = async (): Promise<void> => {
       if (checking) return;
       checking = true;
@@ -76,9 +72,24 @@ import Lenis from 'lenis';
         // Keep the last known thumbnail and link if the feed is unavailable.
       } finally { checking = false; }
     };
-    void refreshLatest();
-    window.setInterval(() => { if (!document.hidden) void refreshLatest(); }, 15 * 60 * 1000);
-    document.addEventListener('visibilitychange', () => { if (!document.hidden) void refreshLatest(); });
+    let latestActivated = false;
+    const activateLatest = (): void => {
+      if (latestActivated) return;
+      latestActivated = true;
+    try {
+      const saved: unknown = JSON.parse(localStorage.getItem('yaspieze-latest-regular-video') || 'null');
+      if (saved && typeof saved === 'object' && 'id' in saved && typeof saved.id === 'string' && /^[A-Za-z0-9_-]{11}$/.test(saved.id) && 'title' in saved && typeof saved.title === 'string') applyVideo(saved.id, saved.title);
+    } catch { /* Storage is optional. */ }
+      void refreshLatest();
+    };
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        if (entries.some(entry => entry.isIntersecting)) { observer.disconnect(); activateLatest(); }
+      }, { rootMargin: '700px 0px' });
+      observer.observe(latestLink);
+    } else activateLatest();
+    window.setInterval(() => { if (latestActivated && !document.hidden) void refreshLatest(); }, 15 * 60 * 1000);
+    document.addEventListener('visibilitychange', () => { if (latestActivated && !document.hidden) void refreshLatest(); });
   }
   // A light, playful pointer for mouse users only; touch and reduced motion
   // retain the operating system cursor and never depend on this enhancement.
