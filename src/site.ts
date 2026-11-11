@@ -91,6 +91,62 @@ import Lenis from 'lenis';
     window.setInterval(() => { if (latestActivated && !document.hidden) void refreshLatest(); }, 15 * 60 * 1000);
     document.addEventListener('visibilitychange', () => { if (latestActivated && !document.hidden) void refreshLatest(); });
   }
+  // Locally hosted songs are used instead of hiding a YouTube player. Browsers
+  // may block autoplay with sound, so the speaker button starts it on a click.
+  const songs = ['/fresh/audio/run-away.mp3', '/fresh/audio/undisclosed.mp3'];
+  const storageKey = 'yaspieze-background-audio';
+  type AudioState = { enabled: boolean; track: number; position: number };
+  let audioState: AudioState = { enabled: true, track: 0, position: 0 };
+  try {
+    const saved: unknown = JSON.parse(sessionStorage.getItem(storageKey) || 'null');
+    if (saved && typeof saved === 'object') {
+      const state = saved as Partial<AudioState>;
+      if (typeof state.enabled === 'boolean') audioState.enabled = state.enabled;
+      if (Number.isInteger(state.track) && typeof state.track === 'number' && state.track >= 0 && state.track < songs.length) audioState.track = state.track;
+      if (typeof state.position === 'number' && Number.isFinite(state.position) && state.position >= 0) audioState.position = state.position;
+    }
+  } catch { /* Storage is optional. */ }
+  const music = new Audio();
+  music.preload = 'none';
+  music.volume = 0.08;
+  music.src = songs[audioState.track];
+  const speaker = document.createElement('button');
+  speaker.type = 'button';
+  speaker.className = 'sound-toggle';
+  const onIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.8 8.5H4.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.3L11 19V5Z" fill="currentColor"/><path d="M14.5 9a4.2 4.2 0 0 1 0 6m2.7-8.5a7.8 7.8 0 0 1 0 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  const offIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.8 8.5H4.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.3L11 19V5Z" fill="currentColor"/><path d="m15 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
+  const updateSpeaker = (): void => {
+    const playing = !music.paused;
+    speaker.innerHTML = playing ? onIcon : offIcon;
+    speaker.setAttribute('aria-label', playing ? 'Mute background music' : 'Play background music');
+    speaker.setAttribute('aria-pressed', String(playing));
+  };
+  const saveAudio = (): void => {
+    if (Number.isFinite(music.currentTime) && music.currentTime > 0) audioState.position = music.currentTime;
+    try { sessionStorage.setItem(storageKey, JSON.stringify(audioState)); } catch { /* Storage is optional. */ }
+  };
+  let restorePosition = audioState.position;
+  music.addEventListener('loadedmetadata', () => {
+    if (restorePosition > 0 && Number.isFinite(music.duration) && restorePosition < music.duration) music.currentTime = restorePosition;
+    restorePosition = 0;
+  });
+  music.addEventListener('play', updateSpeaker);
+  music.addEventListener('pause', updateSpeaker);
+  let lastSaved = 0;
+  music.addEventListener('timeupdate', () => { if (Date.now() - lastSaved >= 2000) { lastSaved = Date.now(); saveAudio(); } });
+  music.addEventListener('ended', () => {
+    audioState.track = (audioState.track + 1) % songs.length; audioState.position = 0; restorePosition = 0;
+    music.src = songs[audioState.track]; saveAudio();
+    if (audioState.enabled) void music.play().catch(updateSpeaker);
+  });
+  speaker.addEventListener('click', () => {
+    if (!music.paused) { audioState.enabled = false; music.pause(); updateSpeaker(); saveAudio(); }
+    else { audioState.enabled = true; saveAudio(); void music.play().then(updateSpeaker).catch(updateSpeaker); }
+  });
+  window.addEventListener('pagehide', saveAudio);
+  document.body.append(speaker);
+  updateSpeaker();
+  if (audioState.enabled) void music.play().then(updateSpeaker).catch(updateSpeaker);
   // A light, playful pointer for mouse users only; touch and reduced motion
   // retain the operating system cursor and never depend on this enhancement.
   const finePointer = window.matchMedia('(min-width: 801px) and (hover: hover) and (pointer: fine)');
