@@ -95,7 +95,6 @@ import Lenis from 'lenis';
   // may block autoplay with sound, so the speaker button starts it on a click.
   type Song = { id: string; title: string; src: string };
   let songs: Song[] = [
-    { id: 'k8ASohZN9DE', title: 'Run Away', src: '/fresh/audio/run-away.mp3' },
     { id: '901NBsNnias', title: 'UNDISCLOSED', src: '/fresh/audio/undisclosed.mp3' }
   ];
   const storageKey = 'yaspieze-background-audio';
@@ -121,9 +120,14 @@ import Lenis from 'lenis';
   speaker.className = 'sound-toggle';
   const soundWidget = document.createElement('div');
   soundWidget.className = 'sound-widget';
+  const skipButton = document.createElement('button');
+  skipButton.type = 'button';
+  skipButton.className = 'sound-skip';
+  skipButton.setAttribute('aria-label', 'Skip to next song');
+  skipButton.innerHTML = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5.1 5.5a.9.9 0 0 1 1.37-.77l9.13 6.02a1.5 1.5 0 0 1 0 2.5l-9.13 6.02a.9.9 0 0 1-1.37-.77v-13Zm13.25.1a.9.9 0 0 1 1.8 0v12.8a.9.9 0 0 1-1.8 0V5.6Z"/></svg>';
   const nowPlaying = document.createElement('span');
   nowPlaying.className = 'now-playing';
-  const updateTitle = (): void => { nowPlaying.textContent = `Now Playing: ${songs[audioState.track].title}`; };
+  const updateTitle = (): void => { nowPlaying.textContent = `Now Playing: ${songs[audioState.track].title}`; skipButton.disabled = songs.length < 2; };
   updateTitle();
   const onIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.8 8.5H4.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.3L11 19V5Z" fill="currentColor"/><path d="M14.5 9a4.2 4.2 0 0 1 0 6m2.7-8.5a7.8 7.8 0 0 1 0 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
   const offIcon = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M11 5 6.8 8.5H4.5a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h2.3L11 19V5Z" fill="currentColor"/><path d="m15 9 5 6m0-6-5 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>';
@@ -147,17 +151,20 @@ import Lenis from 'lenis';
   music.addEventListener('pause', updateSpeaker);
   let lastSaved = 0;
   music.addEventListener('timeupdate', () => { if (Date.now() - lastSaved >= 2000) { lastSaved = Date.now(); saveAudio(); } });
-  music.addEventListener('ended', () => {
+  const nextTrack = (continuePlaying: boolean): void => {
     audioState.track = (audioState.track + 1) % songs.length; audioState.position = 0; restorePosition = 0;
     music.src = songs[audioState.track].src; updateTitle(); saveAudio();
-    if (audioState.enabled) void music.play().catch(updateSpeaker);
-  });
+    if (continuePlaying && audioState.enabled) void music.play().then(updateSpeaker).catch(updateSpeaker);
+    else updateSpeaker();
+  };
+  music.addEventListener('ended', () => nextTrack(true));
+  skipButton.addEventListener('click', () => nextTrack(!music.paused));
   speaker.addEventListener('click', () => {
     if (!music.paused) { audioState.enabled = false; music.pause(); updateSpeaker(); saveAudio(); }
     else { audioState.enabled = true; saveAudio(); void music.play().then(updateSpeaker).catch(updateSpeaker); }
   });
   window.addEventListener('pagehide', saveAudio);
-  soundWidget.append(speaker, nowPlaying);
+  soundWidget.append(speaker, nowPlaying, skipButton);
   document.body.append(soundWidget);
   updateSpeaker();
   if (audioState.enabled) void music.play().then(updateSpeaker).catch(updateSpeaker);
@@ -175,6 +182,7 @@ import Lenis from 'lenis';
     const savedIndex = savedTrackId ? list.findIndex(song => song.id === savedTrackId) : -1;
     const nextIndex = savedIndex >= 0 ? savedIndex : 0;
     const next = list[nextIndex];
+    if (savedTrackId && next.id !== savedTrackId) { audioState.position = 0; restorePosition = 0; try { music.currentTime = 0; } catch { /* Not yet seekable. */ } }
     if (next.id !== currentId || next.src !== songs[audioState.track].src) {
       music.src = next.src;
       if (next.id !== savedTrackId) { audioState.position = 0; restorePosition = 0; }
